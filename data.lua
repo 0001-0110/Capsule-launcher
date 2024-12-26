@@ -1,7 +1,9 @@
+local utils = require("utils.utils")
+
 data:extend({
     {
         type = "ammo-category",
-        name = "22_hl_hive-capsule"
+        name = utils.prefix("hive-capsule")
     }
 })
 
