@@ -9,4 +9,4 @@ require("prototypes.projectiles.defender_projectile")
 require("prototypes.projectiles.distractor_projectile")
 require("prototypes.projectiles.destroyer_projectile")
 
-require("prototypes.turrets.hive-launcher")
+data:extend(require("prototypes.turrets.hive-launcher").prototypes)
