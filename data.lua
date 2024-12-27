@@ -5,8 +5,8 @@ data:extend({
     }
 })
 
-require("prototypes.projectiles.defender_projectile")
-require("prototypes.projectiles.distractor_projectile")
-require("prototypes.projectiles.destroyer_projectile")
+-- data:extend(require("prototypes.projectiles.defender_projectile").prototypes)
+data:extend(require("prototypes.projectiles.distractor_projectile").prototypes)
+-- data:extend(require("prototypes.projectiles.destroyer_projectile").prototypes)
 
 data:extend(require("prototypes.turrets.hive-launcher").prototypes)
