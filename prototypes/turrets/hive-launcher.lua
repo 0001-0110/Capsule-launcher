@@ -7,6 +7,9 @@ local hive_launcher = {}
 hive_launcher.entity = table.deepcopy(data.raw["ammo-turret"][BASED_ON])
 hive_launcher.entity.name = utils.prefix("hive-launcher-entity")
 hive_launcher.entity.attack_parameters.ammo_category = utils.prefix("hive-capsule")
+hive_launcher.entity.attack_parameters.range = 50
+hive_launcher.entity.attack_parameters.min_range = 0
+hive_launcher.entity.attack_parameters.cooldown = 600
 
 hive_launcher.item = table.deepcopy(data.raw["item"][BASED_ON])
 hive_launcher.item.name = utils.prefix("hive-launcher-item")
