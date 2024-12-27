@@ -26,6 +26,7 @@ distractor_hive_projectile.action.action_delivery =
         {
             type = "create-entity",
             entity_name = "distractor",
+            offsets = { {0, 0}, {1, 1}, {1, 0}, }
         },
     },
 }
