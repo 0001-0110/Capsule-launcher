@@ -1,24 +1,28 @@
+local utils = require("utils.utils")
+
 local based_on = "rocket"
 
-local distractor_hive_capsule_item = table.deepcopy(data.raw["ammo"][based_on])
-distractor_hive_capsule_item.name = "22_hl_distractor-hive-capsule"
-distractor_hive_capsule_item.ammo_category = "22_hl_hive-capsule"
-distractor_hive_capsule_item.ammo_type.action.action_delivery.projectile = "22_hl_distractor-hive-projectile"
+local distractor_hive_capsule = {}
 
-local distractor_hive_capsule_recipe = table.deepcopy(data.raw["recipe"][based_on])
-distractor_hive_capsule_recipe.name = "22_hl_distractor-hive-capsule-recipe"
-distractor_hive_capsule_recipe.results =
+distractor_hive_capsule.item = table.deepcopy(data.raw["ammo"][based_on])
+distractor_hive_capsule.item.name = utils.prefix("distractor-hive-capsule")
+distractor_hive_capsule.item.ammo_category = utils.prefix("hive-capsule")
+distractor_hive_capsule.item.ammo_type.action.action_delivery.projectile = utils.prefix("distractor-hive-projectile")
+
+distractor_hive_capsule.recipe = table.deepcopy(data.raw["recipe"][based_on])
+distractor_hive_capsule.recipe.name = utils.prefix("distractor-hive-capsule-recipe")
+distractor_hive_capsule.recipe.results =
 {
     {
         type = "item",
-        name = distractor_hive_capsule_item.name,
+        name = distractor_hive_capsule.item.name,
         amount = 1,
     }
 }
 
-local distractor_hive_projectile = table.deepcopy(data.raw["projectile"][based_on])
-distractor_hive_projectile.name = "22_hl_distractor-hive-projectile"
-distractor_hive_projectile.action.action_delivery =
+distractor_hive_capsule.projectile = table.deepcopy(data.raw["projectile"][based_on])
+distractor_hive_capsule.projectile.name = utils.prefix("distractor-hive-projectile")
+distractor_hive_capsule.projectile.action.action_delivery =
 {
     type = "instant",
     target_effects =
@@ -31,4 +35,5 @@ distractor_hive_projectile.action.action_delivery =
     },
 }
 
-data:extend({ distractor_hive_capsule_item, distractor_hive_capsule_recipe, distractor_hive_projectile, })
+distractor_hive_capsule.prototypes = { distractor_hive_capsule.item, distractor_hive_capsule.recipe, distractor_hive_capsule.projectile, }
+return distractor_hive_capsule

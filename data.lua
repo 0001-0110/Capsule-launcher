@@ -1,12 +1,14 @@
+local utils = require("utils.utils")
+
 data:extend({
     {
         type = "ammo-category",
-        name = "22_hl_hive-capsule"
+        name = utils.prefix("hive-capsule")
     }
 })
 
-require("prototypes.projectiles.defender_projectile")
-require("prototypes.projectiles.distractor_projectile")
-require("prototypes.projectiles.destroyer_projectile")
+-- data:extend(require("prototypes.projectiles.defender_projectile").prototypes)
+data:extend(require("prototypes.projectiles.distractor_projectile").prototypes)
+-- data:extend(require("prototypes.projectiles.destroyer_projectile").prototypes)
 
-require("prototypes.turrets.hive-launcher")
+data:extend(require("prototypes.turrets.hive-launcher").prototypes)

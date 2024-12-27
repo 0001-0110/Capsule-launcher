@@ -1,25 +1,33 @@
-local based_on = "rocket-turret"
+local utils = require("utils.utils")
 
-local hive_launcher_entity = table.deepcopy(data.raw["ammo-turret"][based_on])
-hive_launcher_entity.name = "22_hl_hive-launcher-entity"
-hive_launcher_entity.attack_parameters.ammo_category = "22_hl_hive-capsule"
+local BASED_ON = "rocket-turret"
 
-local hive_launcher_item = table.deepcopy(data.raw["item"][based_on])
-hive_launcher_item.name = "22_hl_hive-launcher-item"
-hive_launcher_item.place_result = hive_launcher_entity.name
+local hive_launcher = {}
 
-hive_launcher_entity.minable.result = hive_launcher_item.name
+hive_launcher.entity = table.deepcopy(data.raw["ammo-turret"][BASED_ON])
+hive_launcher.entity.name = utils.prefix("hive-launcher-entity")
+hive_launcher.entity.attack_parameters.ammo_category = utils.prefix("hive-capsule")
+hive_launcher.entity.attack_parameters.range = 50
+hive_launcher.entity.attack_parameters.min_range = 0
+hive_launcher.entity.attack_parameters.cooldown = 600
 
-local hive_launcher_recipe = table.deepcopy(data.raw["recipe"][based_on])
-hive_launcher_recipe.name = "22_hl_hive-launcher-recipe"
-hive_launcher_recipe.enabled = true
-hive_launcher_recipe.results =
+hive_launcher.item = table.deepcopy(data.raw["item"][BASED_ON])
+hive_launcher.item.name = utils.prefix("hive-launcher-item")
+hive_launcher.item.place_result = hive_launcher.entity.name
+
+hive_launcher.entity.minable.result = hive_launcher.item.name
+
+hive_launcher.recipe = table.deepcopy(data.raw["recipe"][BASED_ON])
+hive_launcher.recipe.name = utils.prefix("hive-launcher-recipe")
+hive_launcher.recipe.enabled = true
+hive_launcher.recipe.results =
 {
     {
         type = "item",
-        name = hive_launcher_item.name,
+        name = hive_launcher.item.name,
         amount = 1,
     }
 }
 
-data:extend({ hive_launcher_entity, hive_launcher_item, hive_launcher_recipe })
+hive_launcher.prototypes = { hive_launcher.entity, hive_launcher.item, hive_launcher.recipe, }
+return hive_launcher
