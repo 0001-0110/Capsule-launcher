@@ -3,7 +3,7 @@ local utils = require("utils.utils")
 data:extend({
     {
         type = "ammo-category",
-        name = utils.prefix("hive-capsule")
+        name = utils.prefix("capsule")
     }
 })
 

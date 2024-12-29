@@ -1,7 +1,7 @@
 {
-    "name": "hive-launcher",
+    "name": "capsule-launcher",
     "version": "0.1.0",
-    "title": "Hive launcher",
+    "title": "Capsule launcher",
     "description": "New turret",
     "author": "22",
     "factorio_version": "2.0",
