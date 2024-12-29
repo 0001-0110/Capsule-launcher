@@ -11,4 +11,4 @@ data:extend({
 data:extend(require("prototypes.projectiles.distractor_projectile").prototypes)
 -- data:extend(require("prototypes.projectiles.destroyer_projectile").prototypes)
 
-data:extend(require("prototypes.turrets.hive-launcher").prototypes)
+data:extend(require("prototypes.turrets.capsule-launcher").prototypes)

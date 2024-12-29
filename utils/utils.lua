@@ -1,5 +1,5 @@
--- hl stands for hive launcher
-local PREFIX = "22_hl"
+-- cl stands for capsule launcher
+local PREFIX = "22_cl"
 
 local utils = {}
 
