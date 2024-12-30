@@ -35,13 +35,18 @@ hive_launcher.recipe.ingredients =
     },
     {
         type = "item",
+        name = "engine-unit",
+        amount = 20,
+    },
+    {
+        type = "item",
         name = "advanced-circuit",
         amount = 4,
     },
     {
         type = "item",
-        name = "engine-unit",
-        amount = 20,
+        name = "rocket-launcher",
+        amount = 4,
     },
 }
 hive_launcher.recipe.results =
@@ -77,9 +82,8 @@ hive_launcher.technology =
             type = "unlock-recipe",
             recipe = hive_launcher.recipe.name,
         },
-        -- TODO Unlock poison and slowdown capsules
     },
-    prerequisites = { "military-3", },
+    prerequisites = { "rocketry", },
 }
 
 hive_launcher.prototypes = { hive_launcher.entity, hive_launcher.item, hive_launcher.recipe, hive_launcher.technology, }
