@@ -3,6 +3,7 @@ Features:
 
 Coming soon:
 - Slowdown and poison capsules
+- Static combat robots (for defenders and destroyers)
 - Handle quality
 - Make this turret not placable in space
 - support without space age (still in discussion)

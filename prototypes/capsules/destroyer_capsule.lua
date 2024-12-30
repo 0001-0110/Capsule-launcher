@@ -1,6 +1,5 @@
-local utils = require("utils.utils")
+local truc = require("prototypes.capsules.truc")
 
 local destroyer_capsule = {}
-
-destroyer_capsule.prototypes = {}
+truc.create_all_prototypes(destroyer_capsule, "destroyer")
 return destroyer_capsule
