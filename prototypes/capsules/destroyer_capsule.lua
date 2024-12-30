@@ -1,5 +1,5 @@
-local truc = require("prototypes.capsules.truc")
+local combat_robot_capsule = require("capsule-launcher.prototypes.capsules.combat_robot_capsule")
 
 local destroyer_capsule = {}
-truc.create_all_prototypes(destroyer_capsule, "destroyer")
+combat_robot_capsule.create_all_prototypes(destroyer_capsule, "destroyer", 3)
 return destroyer_capsule
