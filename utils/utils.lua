@@ -5,7 +5,11 @@ local utils = {}
 
 -- Take the `count` first element of the given table
 function utils.take(list, count)
-    return table.unpack(list, 0, count)
+    local result = {}
+    for i = 1, math.min(count, #list) do
+        table.insert(result, list[i])
+    end
+    return result
 end
 
 -- Add the mod prefix to the given string
