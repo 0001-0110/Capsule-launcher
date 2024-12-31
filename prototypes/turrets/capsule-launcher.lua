@@ -62,8 +62,8 @@ hive_launcher.technology =
 {
     type = "technology",
     name = utils.prefix("capsule-launcher-technology"),
-    icon = "__capsule-launcher__/icons/logo_22.jpg",
-    icon_size = 128,
+    icon = "__space-age__/graphics/technology/rocket-turret.png",
+    icon_size = 256,
     unit =
     {
         count = 200,
