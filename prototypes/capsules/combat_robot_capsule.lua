@@ -52,6 +52,11 @@ local function create_recipe_prototype(name, result_item)
     {
         {
             type = "item",
+            name = "iron-plate",
+            amount = 2,
+        },
+        {
+            type = "item",
             name = name .. "-capsule",
             amount = 1,
         },
