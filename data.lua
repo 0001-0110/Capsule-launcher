@@ -20,6 +20,6 @@ data:extend(capsule_launcher.prototypes)
 
 -- Load all prototypes for the different ammo that can be used inside the capsule launcher
 --load(effect_capsules)
---load(defender_capsule)
+load(defender_capsule)
 load(distractor_capsule)
---load(destroyer_capsule)
+load(destroyer_capsule)
