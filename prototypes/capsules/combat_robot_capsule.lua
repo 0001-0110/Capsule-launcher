@@ -3,11 +3,12 @@ local ammo_category = require("prototypes.ammo_category")
 
 local BASED_ON = "rocket"
 
--- Create a custom combat robot that do not follow its owner
+-- Create a custom combat robot that stays idle
+-- Setting the `follows_player` to false is not enough, because that causes the robots to drift aimlessly
 local function create_custom_combat_robot(name)
     local custom_combat_robot = table.deepcopy(data.raw["combat-robot"][name])
     custom_combat_robot.name = utils.prefix(name)
-    custom_combat_robot.follows_player = false
+    custom_combat_robot.max_speed = 0
     return custom_combat_robot
 end
 
