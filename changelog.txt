@@ -1,0 +1,6 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2024/12/31
+  Features:
+    - Added new turret: capsule launcher
+    - Added new ammo for each type of combat robots
