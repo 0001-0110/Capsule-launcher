@@ -25,10 +25,10 @@ local function create_projectile_prototype(name, entity_count, custom_combat_rob
             {
                 type = "create-entity",
                 entity_name = custom_combat_robot and custom_combat_robot.name or name,
-                -- TODO This can only work for up to three entities, find a more generic solution
+                -- TODO This can only work for up to five entities, find a more generic solution
                 -- The number of offsets will dictate the number of entities created
                 -- Each offset is a position relative to the impact point of the projectile
-                offsets = utils.take({ {0, 0}, {1, 1}, {1, -1}, }, entity_count)
+                offsets = utils.take({ {0, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, }, entity_count)
             },
         },
     }
