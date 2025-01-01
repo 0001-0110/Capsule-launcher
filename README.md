@@ -1,10 +1,11 @@
-# Capsule Turret Mod
+# Capsule launcher
 
-Welcome to the **Capsule Turret Mod** for Factorio! This mod introduces a unique turret capable of launching capsules, providing new strategic options for your base defense. Whether it's deploying combat robots or delivering poison and slowdown effects at range, this turret opens up creative ways to secure your factory.
+Welcome to the **Capsule launcher mod** for Factorio! This mod introduces a unique turret capable of launching capsules, providing new strategic options for your base defense. Whether it's deploying combat robots or delivering poison and slowdown effects at range, this turret opens up creative ways to secure your factory.
 
 ---
 
-- Capable of firing all types of capsules, including:
+Capable of firing all types of capsules, including:
+  - Slowdown and poison capsules.
   - Combat robot capsules (defenders, distractors, and destroyers).
 
 ---
@@ -16,10 +17,6 @@ I'm actively developing this mod and have exciting features planned for future u
 - **New Graphics**:
   - Updated turret and capsule visuals to enhance the look and feel of the mod.
   - I don't have the skills to create new graphics myself, but if you do and are interested, please reach out!
-
-- **More capsules**:
-
-  - Slowdown and poison capsules.
 
 - **Space Restrictions**:
 
