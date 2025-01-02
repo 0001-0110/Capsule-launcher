@@ -11,7 +11,7 @@ A new turret, the capsule launcher, capable of firing all types of capsules, inc
   - Slowdown and poison capsules.
   - Combat robot capsules (defenders, distractors, and destroyers).
 
-The turret can't be placed on space platforms.
+The capsule launcher can't be placed on space platforms.
 
 ---
 

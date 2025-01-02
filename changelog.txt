@@ -3,6 +3,8 @@ Version:
 Date: 
   Changes:
     - Capsule launchers can't be placed in space anymore
+  Bugfixes:
+    - Slowdown ammo area of effect reduced from 11 to 9 (to match the slowdown capsule)
 
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.0

@@ -3,7 +3,7 @@ local capsule_ammo = require("capsule_ammo")
 local projectile_action =
 {
     type = "area",
-    radius = 11,
+    radius = 9,
     force = "enemy",
     action_delivery =
     {
