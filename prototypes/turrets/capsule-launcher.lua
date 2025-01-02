@@ -11,6 +11,7 @@ hive_launcher.entity.attack_parameters.min_range = 0
 hive_launcher.entity.attack_parameters.range = 50
 hive_launcher.entity.prepare_range = hive_launcher.entity.attack_parameters.range * 1.1
 hive_launcher.entity.attack_parameters.cooldown = 600
+hive_launcher.entity.surface_conditions = { { property = "gravity", min = 0.1, }, }
 
 hive_launcher.item = table.deepcopy(data.raw["item"][BASED_ON])
 hive_launcher.item.name = utils.prefix("capsule-launcher-item")

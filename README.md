@@ -4,31 +4,31 @@ Welcome to the **Capsule launcher mod** for Factorio! This mod introduces a uniq
 
 ---
 
-Capable of firing all types of capsules, including:
+## Features:
+
+A new turret, the capsule launcher, capable of firing all types of capsules, including:
+
   - Slowdown and poison capsules.
   - Combat robot capsules (defenders, distractors, and destroyers).
 
+The turret can't be placed on space platforms.
+
 ---
 
-## Coming Soon
+## Coming Soon:
 
 I'm actively developing this mod and have exciting features planned for future updates:
 
-- **New Graphics**:
-  - Updated turret and capsule visuals to enhance the look and feel of the mod.
-  - I don't have the skills to create new graphics myself, but if you do and are interested, please reach out!
+  - **New Graphics**:
+    - Updated turret and capsule visuals to enhance the look and feel of the mod.
+    - I don't have the skills to create new graphics myself, but if you do and are interested, please reach out!
 
-- **Space Restrictions**:
-
-  - The turret will be restricted from being placed on space platforms.
-
-- **Standalone Mode**:
-
-  - Support for using this mod without the Space Age mod (discussion ongoing).
+  - **Standalone Mode**:
+    - Support for using this mod without the Space Age mod (discussion ongoing).
 
 ---
 
-## Out of Scope
+## Out of Scope:
 
 To keep the mod focused, I will not add support for grenades. While interesting, they fall outside the intended scope of capsule-based functionality.
 
