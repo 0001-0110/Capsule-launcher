@@ -1,18 +1,23 @@
 ---------------------------------------------------------------------------------------------------
+Version: 
+Date: 
+  Graphics:
+    - Added particle effects on impact
+---------------------------------------------------------------------------------------------------
 Version: 1.2.0
-Date: 2024/01/02
+Date: 2024-01-02
   Changes:
     - Capsule launchers can't be placed in space anymore
   Bugfixes:
     - Slowdown ammo area of effect reduced from 11 to 9 (to match the slowdown capsule)
 ---------------------------------------------------------------------------------------------------
 Version: 1.1.0
-Date: 2024/01/01
+Date: 2024-01-01
   Features:
     - Added new ammo for slowdown and poison capsules
 ---------------------------------------------------------------------------------------------------
 Version: 1.0.0
-Date: 2024/12/31
+Date: 2024-12-31
   Features:
     - Added new turret: capsule launcher
     - Added new ammo for each type of combat robots

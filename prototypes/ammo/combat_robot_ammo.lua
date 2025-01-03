@@ -12,7 +12,7 @@ local function create_custom_combat_robot(name)
     return custom_combat_robot
 end
 
-local function create_action_delivery(name, entity_count, custom_combat_robot)
+local function create_action(name, entity_count, custom_combat_robot)
     return {
         type = "direct",
         action_delivery =
@@ -29,6 +29,16 @@ local function create_action_delivery(name, entity_count, custom_combat_robot)
                     -- Each offset is a position relative to the impact point of the projectile
                     offsets = utils.take({ {0, 0}, {1, 1}, {1, -1}, {-1, 1}, {-1, -1}, }, entity_count)
                 },
+                -- Small particle effects when the projectile hits
+                {
+                    type = "create-entity",
+                    entity_name = name .. "-robot-explosion",
+                },
+                {
+                    type = "create-entity",
+                    entity_name = "small-scorchmark-tintable",
+                    check_buildability = true,
+                },
             },
         },
     }
@@ -44,8 +54,8 @@ function combat_robot_ammo.create_all_prototypes(capsule, name, entity_count)
         table.insert(capsule.prototypes, capsule.custom_combat_robot)
     end
 
-    local action_delivery = create_action_delivery(name, entity_count, capsule.custom_combat_robot)
-    capsule_ammo.create_all_prototypes(capsule, name, action_delivery, data.raw["technology"][name])
+    local action = create_action(name, entity_count, capsule.custom_combat_robot)
+    capsule_ammo.create_all_prototypes(capsule, name, action, data.raw["technology"][name])
 end
 
 return combat_robot_ammo
