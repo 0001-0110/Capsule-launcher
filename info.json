@@ -2,7 +2,7 @@
     "name": "capsule-launcher",
     "version": "1.2.0",
     "title": "Capsule launcher",
-    "description": "New turret",
+    "description": "Introduce a turret that fires capsules (slowdown, poison, and combat robots) for strategic base defense.",
     "author": "22",
     "factorio_version": "2.0",
     "dependencies": ["base >= 2.0", "space-age"]
