@@ -4,7 +4,8 @@ Date:
   Graphics:
     - Added particle effects on impact
   Modding:
-    - Added compatibility with "useful slowdown capsule"
+    - Added compatibility for "useful slowdown capsules"
+    - Added compatibility for "reusable robots"
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2024-01-02
