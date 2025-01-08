@@ -9,6 +9,7 @@
         "base >= 2.0",
         "space-age",
         "? useful-slowdown-capsules",
-        "? turret-activation-delay"
+        "? turret-activation-delay",
+        "? Turret-Shields"
     ]
 }
