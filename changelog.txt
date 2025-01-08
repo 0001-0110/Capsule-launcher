@@ -1,8 +1,10 @@
 ---------------------------------------------------------------------------------------------------
-Version: 
+Version: 1.3.0
 Date: 
   Graphics:
     - Added particle effects on impact
+  Modding:
+    - Added compatibility with "useful slowdown capsule"
 ---------------------------------------------------------------------------------------------------
 Version: 1.2.0
 Date: 2024-01-02
