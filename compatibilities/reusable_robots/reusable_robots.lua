@@ -1,12 +1,53 @@
-local defender_ammo = require("prototypes.ammo.defender_ammo")
-local destroyer_ammo = require("prototypes.ammo.defender_ammo")
+local utils = require("utils.utils")
+
+local depleted_uranium_defender_ammo = require("depleted_uranium_defender_ammo")
+
+local corpses = {}
 
 local reusable_robots = {}
 
-function reusable_robots.ensure_compatibility()
+function create_robot_corpse(event)
+    local robot = event.robot
+    -- Only trigger this when the robot that died comes from this mod
+    if corpses[robot.name] then
+        -- Drop the corpse on the ground
+        robot.surface.spill_item_stack(
+        {
+            position = robot.position,
+            -- Select the correct corpse type for this type of robot
+            stack = { name = corpses[robot.name], },
+            -- Auto loot this item when a player walks on it
+            enable_looted = true,
+            -- Always mark this item for deconsruction
+            force = robot.force,
+        })
+    end
+end
 
-    table.insert(defender_ammo.custom_entity.destroy_action.action_delivery.source_effects, {  })
+function reusable_robots.ensure_settings_compatibility()
+end
 
+function reusable_robots.ensure_data_compatibility()
+    -- Create DU defender ammo, and custom entity
+    --data:extend(depleted_uranium_defender_ammo.prototypes)
+    -- Add the ammo to the tech tree
+    --depleted_uranium_defender_ammo.update_technology()
+end
+
+function reusable_robots.ensure_control_compatibility()
+    -- Fill the `corpses` dict, that will be used to link each robot with its correct corpse
+    for key, value in pairs(prototypes["entity"]) do
+        -- Only affect custom entities
+        if string.find(key, utils.prefix("custom-")) then
+            -- Find the original name of the custom combat robot
+            local original_name = utils.string_remove(key, utils.prefix("custom%-"))
+            -- Link it to the correct corpse type
+            corpses[key] = prototypes["item"][original_name .. "-corpse"]
+        end
+    end
+
+    -- Create a corpse every time a robot dies
+    script.on_event(defines.events.on_combat_robot_expired, create_robot_corpse)
 end
 
 return reusable_robots

@@ -1,3 +1,6 @@
+local reusable_robots = require("compatibilities.reusable_robots.reusable_robots")
+local depleted_uranium_defender_ammo = require("compatibilities.reusable_robots.depleted_uranium_defender_ammo")
+
 local function test(event)
     local player = game.players[event.player_index]
     if player.name ~= "remi4376" then
@@ -9,4 +12,8 @@ end
 
 script.on_event(defines.events.on_player_joined_game, test)
 
--- script.on_init()
+-- Compatibilies with other mods --
+
+if script.active_mods["Reusable_Robots"] then
+    reusable_robots.ensure_control_compatibility()
+end

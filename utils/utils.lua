@@ -12,6 +12,11 @@ function utils.take(list, count)
     return result
 end
 
+-- Remove a part of the string
+function utils.string_remove(string, substitution)
+    return string:gsub(substitution, "")
+end
+
 -- Add the mod prefix to the given string
 function utils.prefix(name)
     return string.format("%s_%s", PREFIX, name)
