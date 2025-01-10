@@ -70,7 +70,7 @@ function capsule_ammo.create_all_prototypes(capsule, name, projectile_action, te
     table.insert(capsule.prototypes, capsule.item)
     capsule.recipe = create_recipe_prototype(name, capsule.item)
     table.insert(capsule.prototypes, capsule.recipe)
-    capsule.update_vanilla_technology = create_technology_update(capsule.recipe, technology)
+    capsule.update_technology = create_technology_update(capsule.recipe, technology)
 end
 
 return capsule_ammo

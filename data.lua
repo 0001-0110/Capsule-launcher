@@ -7,7 +7,7 @@ local distractor_ammo = require("prototypes.ammo.distractor_ammo")
 local destroyer_ammo = require("prototypes.ammo.destroyer_ammo")
 
 local function load(capsule)
-    capsule.update_vanilla_technology()
+    capsule.update_technology()
     data:extend(capsule.prototypes)
 end
 
