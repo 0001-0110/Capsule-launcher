@@ -1,5 +1,4 @@
-local reusable_robots = require("compatibilities.reusable_robots.reusable_robots")
-local depleted_uranium_defender_ammo = require("compatibilities.reusable_robots.depleted_uranium_defender_ammo")
+local reusable_robots = require("compatibilities.reusable_robots.control")
 
 local function test(event)
     local player = game.players[event.player_index]

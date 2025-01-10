@@ -32,7 +32,7 @@ local function create_action(name, entity_count, custom_combat_robot)
                 -- Small particle effects when the projectile hits
                 {
                     type = "create-entity",
-                    entity_name = name .. "-robot-explosion",
+                    entity_name = name == "uranium-defender" and "defender-robot-explosion" or name .. "-robot-explosion",
                 },
                 {
                     type = "create-entity",
@@ -44,7 +44,8 @@ local function create_action(name, entity_count, custom_combat_robot)
     }
 end
 
-function combat_robot_ammo.create_all_prototypes(capsule, name, entity_count)
+-- technology is the technology to add this recipe to (optional argument)
+function combat_robot_ammo.create_all_prototypes(capsule, name, entity_count, technology)
     capsule.prototypes = {}
 
     -- Combat robots shouldn't go back to the turret that shot them, so we create a custom combat robot that doesn't
@@ -55,7 +56,7 @@ function combat_robot_ammo.create_all_prototypes(capsule, name, entity_count)
     end
 
     local action = create_action(name, entity_count, capsule.custom_combat_robot)
-    capsule_ammo.create_all_prototypes(capsule, name, action, data.raw["technology"][name])
+    capsule_ammo.create_all_prototypes(capsule, name, action, technology or data.raw["technology"][name])
 end
 
 return combat_robot_ammo

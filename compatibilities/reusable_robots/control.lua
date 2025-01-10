@@ -1,7 +1,5 @@
 local utils = require("utils.utils")
 
-local depleted_uranium_defender_ammo = require("depleted_uranium_defender_ammo")
-
 local corpses = {}
 
 local reusable_robots = {}
@@ -22,16 +20,6 @@ function create_robot_corpse(event)
             force = robot.force,
         })
     end
-end
-
-function reusable_robots.ensure_settings_compatibility()
-end
-
-function reusable_robots.ensure_data_compatibility()
-    -- Create DU defender ammo, and custom entity
-    --data:extend(depleted_uranium_defender_ammo.prototypes)
-    -- Add the ammo to the tech tree
-    --depleted_uranium_defender_ammo.update_technology()
 end
 
 function reusable_robots.ensure_control_compatibility()
