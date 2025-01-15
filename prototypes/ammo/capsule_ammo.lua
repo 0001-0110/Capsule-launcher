@@ -59,10 +59,9 @@ end
 
 local capsule_ammo = {}
 
-function capsule_ammo.create_all_prototypes(capsule, name, projectile_action, technology)
-    -- If this is a combat robot capsule, `prototypes` has already been initialized and may contain values. It should
-    -- only be replaced by a new table if it is nil
-    capsule.prototypes = capsule.prototypes or {}
+function capsule_ammo.create_all_prototypes(name, projectile_action, technology)
+    local capsule = {}
+    capsule.prototypes = {}
 
     capsule.projectile = create_projectile_prototype(name, projectile_action)
     table.insert(capsule.prototypes, capsule.projectile)
@@ -71,6 +70,7 @@ function capsule_ammo.create_all_prototypes(capsule, name, projectile_action, te
     capsule.recipe = create_recipe_prototype(name, capsule.item)
     table.insert(capsule.prototypes, capsule.recipe)
     capsule.update_technology = create_technology_update(capsule.recipe, technology)
+    return capsule
 end
 
 return capsule_ammo

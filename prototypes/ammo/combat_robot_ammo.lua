@@ -45,18 +45,15 @@ local function create_action(name, entity_count, custom_combat_robot)
 end
 
 -- technology is the technology to add this recipe to (optional argument)
-function combat_robot_ammo.create_all_prototypes(capsule, name, entity_count, technology)
-    capsule.prototypes = {}
-
+function combat_robot_ammo.create_all_prototypes(name, entity_count, technology)
     -- Combat robots shouldn't go back to the turret that shot them, so we create a custom combat robot that doesn't
     -- follow its owner
-    if data.raw["combat-robot"][name].follows_player then
-        capsule.custom_combat_robot = create_custom_combat_robot(name)
-        table.insert(capsule.prototypes, capsule.custom_combat_robot)
-    end
-
-    local action = create_action(name, entity_count, capsule.custom_combat_robot)
-    capsule_ammo.create_all_prototypes(capsule, name, action, technology or data.raw["technology"][name])
+    local custom_combat_robot = create_custom_combat_robot(name)
+    local action = create_action(name, entity_count, custom_combat_robot)
+    local capsule = capsule_ammo.create_all_prototypes(name, action, technology or data.raw["technology"][name])
+    capsule.custom_combat_robot = custom_combat_robot
+    table.insert(capsule.prototypes, capsule.custom_combat_robot)
+    return capsule
 end
 
 return combat_robot_ammo

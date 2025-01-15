@@ -6,7 +6,8 @@ local defender_ammo = require("prototypes.ammo.defender_ammo")
 local distractor_ammo = require("prototypes.ammo.distractor_ammo")
 local destroyer_ammo = require("prototypes.ammo.destroyer_ammo")
 
-local function load(capsule)
+local function load(module)
+    local capsule = module.create_all_prototypes()
     capsule.update_technology()
     data:extend(capsule.prototypes)
 end
