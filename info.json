@@ -3,7 +3,7 @@
     "version": "1.3.1",
     "title": "Capsule launcher",
     "description": "Introduce a turret that fires capsules (slowdown, poison, and combat robots) for strategic base defense.",
-    "author": "22",
+    "author": "0001-0110",
     "factorio_version": "2.0",
     "dependencies": [
         "base >= 2.0",
