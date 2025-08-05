@@ -4,7 +4,7 @@ local corpses = {}
 
 local reusable_robots = {}
 
-function create_robot_corpse(event)
+local function create_robot_corpse(event)
     local robot = event.robot
     -- Only trigger this when the robot that died comes from this mod
     if corpses[robot.name] then
