@@ -3,9 +3,11 @@ local ammo_category = require("prototypes.ammo_category")
 
 local based_on = "rocket"
 
-local function create_item_prototype(name, projectile)
+--- @param capsule data.CapsulePrototype
+local function create_item_prototype(capsule, projectile)
     local item = table.deepcopy(data.raw["ammo"][based_on])
-    item.name = utils.prefix(name .. "-ammo")
+    item.name = utils.prefix(capsule.name .. "-ammo")
+    item.icon = capsule.icon
     -- Set the ammo category to allow capsule launchers to use this as ammo
     item.ammo_category = ammo_category.name
     -- Set the projectile to fire when this item is used in the turret
@@ -52,7 +54,7 @@ local ammo_factory = {}
 --- @return data.Prototype[]
 function ammo_factory.create_ammo_prototypes(capsule, technology)
     local projectile = capsule.capsule_action.attack_parameters.ammo_type
-    item = create_item_prototype(capsule.name, projectile)
+    item = create_item_prototype(capsule, projectile)
     recipe = create_recipe_prototype(capsule.name, item)
     update_technology(recipe, technology)
     return { item, recipe, }
