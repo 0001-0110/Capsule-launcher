@@ -1,8 +1,14 @@
-stds.factorio = {
-  globals = {
-    "game", "script", "global", "defines", "remote", "commands", "settings", "rcon"
-  }
-}
+std = {
+    read_globals = {
+        "require",
+        "string",
+        "table",
+        "pairs",
+        "ipairs",
+        "math",
 
-std = "factorio"
-files["**/*.lua"] = {std = "factorio"}
+        "data",
+        "script",
+        "mods",
+    },
+}
