@@ -34,7 +34,7 @@ function combat_robot_ammo_factory.create_combat_robot_ammo_prototypes(combat_ro
     local combat_robot_prototype = get_combat_robot_prototype(utils.get_projectile(combat_robot_capsule))
     local idle_combat_robot = create_idle_combat_robot(combat_robot_prototype)
     update_projectile_combat_robot(utils.get_projectile(combat_robot_capsule), idle_combat_robot)
-    local prototypes = ammo_factory.create_ammo_prototypes(combat_robot_capsule, data.raw["technology"]["automation"])
+    local prototypes = ammo_factory.create_ammo_prototypes(combat_robot_capsule)
     table.insert(prototypes, idle_combat_robot)
     return prototypes
 end

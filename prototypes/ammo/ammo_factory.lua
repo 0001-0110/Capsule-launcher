@@ -43,21 +43,55 @@ local function create_recipe_prototype(name, result_item)
     return recipe
 end
 
--- Update the existing technology effects to add the new recipe to unlock
-local function update_technology(recipe, technology)
-    table.insert(technology.effects, { type = "unlock-recipe", recipe = recipe.name, })
+--- Update the existing technology effects to add the new recipe to unlock
+--- @param capsule data.CapsulePrototype
+--- @param new_recipe data.RecipePrototype
+local function update_technology(capsule, new_recipe)
+    -- TODO These two loops are really similar, some factorization would be nice
+
+    local capsule_recipe = nil
+    for _, recipe in pairs(data.raw["recipe"]) do
+        -- We are searching for the real recipes, so we ignore recycling recipes that are not linked with any technology
+        if not string.match(recipe.name, "recycling") and recipe.results ~= nil then
+            for _, result in pairs(recipe.results) do
+                if result.name == capsule.name then
+                    capsule_recipe = recipe
+                end
+            end
+        end
+    end
+    if capsule_recipe == nil then
+        error()
+    end
+    log(capsule.name)
+    log(capsule_recipe.name)
+
+    local capsule_technology = nil
+    for _, technology in pairs(data.raw["technology"]) do
+        if technology.effects ~= nil then
+            for _, effect in pairs(technology.effects) do
+                if effect.type == "unlock-recipe" and effect.recipe == capsule_recipe.name then
+                    capsule_technology = technology
+                end
+            end
+        end
+    end
+    if capsule_technology == nil then
+        error()
+    end
+
+    table.insert(capsule_technology.effects, { type = "unlock-recipe", recipe = new_recipe.name, })
 end
 
 local ammo_factory = {}
 
 --- @param capsule data.CapsulePrototype
---- @param technology data.TechnologyPrototype
 --- @return data.Prototype[]
-function ammo_factory.create_ammo_prototypes(capsule, technology)
+function ammo_factory.create_ammo_prototypes(capsule)
     local projectile = capsule.capsule_action.attack_parameters.ammo_type
     item = create_item_prototype(capsule, projectile)
     recipe = create_recipe_prototype(capsule.name, item)
-    update_technology(recipe, technology)
+    update_technology(capsule, recipe)
     return { item, recipe, }
 end
 
