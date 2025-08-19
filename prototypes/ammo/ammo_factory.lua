@@ -63,8 +63,6 @@ local function update_technology(capsule, new_recipe)
     if capsule_recipe == nil then
         error()
     end
-    log(capsule.name)
-    log(capsule_recipe.name)
 
     local capsule_technology = nil
     for _, technology in pairs(data.raw["technology"]) do
@@ -89,8 +87,8 @@ local ammo_factory = {}
 --- @return data.Prototype[]
 function ammo_factory.create_ammo_prototypes(capsule)
     local projectile = capsule.capsule_action.attack_parameters.ammo_type
-    item = create_item_prototype(capsule, projectile)
-    recipe = create_recipe_prototype(capsule.name, item)
+    local item = create_item_prototype(capsule, projectile)
+    local recipe = create_recipe_prototype(capsule.name, item)
     update_technology(capsule, recipe)
     return { item, recipe, }
 end

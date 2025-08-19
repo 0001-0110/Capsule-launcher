@@ -1,7 +1,7 @@
 local utils = require("utils.utils")
 local capsule_launcher_dataset = require("prototypes.turrets.capsule_launcher_dataset")
 
-capsule_launcher_utils = {}
+local capsule_launcher_utils = {}
 
 function capsule_launcher_utils.create_turret_prototypes()
     return {

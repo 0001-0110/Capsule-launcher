@@ -9,7 +9,7 @@ function utils.first(list, predicate)
         error()
     end
 
-    if not is_array(list) and predicate(list) then
+    if not utils.is_array(list) and predicate(list) then
         return list
     end
 
@@ -27,7 +27,7 @@ function utils.any(list, predicate)
         return false
     end
 
-    if not is_array(list) then
+    if not utils.is_array(list) then
         return predicate(list)
     end
 
@@ -63,7 +63,7 @@ end
 --- @param table table
 --- @return boolean isArray true if the table is an array, false if it is not a table or a table that is not an array
 --- Returns true for an empty table
-function is_array(table)
+function utils.is_array(table)
 	if type(table) ~= "table" then
         return false
     end
@@ -104,7 +104,7 @@ function utils.override_table(base, override, data)
             if type(override_value) == "function" then
                 base[key] = override_value(value, data)
             -- Only merge recursively tables, not arrays
-            elseif type(override_value) == "table" and not is_array(override_value) then
+            elseif type(override_value) == "table" and not utils.is_array(override_value) then
                 base[key] = utils.override_table(table.deepcopy(base[key]), override_value, data)
             else
                 base[key] = override_value
