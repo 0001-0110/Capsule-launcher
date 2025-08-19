@@ -10,5 +10,9 @@ std = {
         "data",
         "script",
         "mods",
+
+        "game",
+        "defines",
+        "prototypes",
     },
 }
