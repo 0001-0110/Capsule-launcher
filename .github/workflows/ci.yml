@@ -30,6 +30,8 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
+      - name: Set up cargo path
+        run: echo "$HOME/.cargo/bin" >> $GITHUB_PATH
       - name: Install stylua
         run: sudo cargo install stylua
       - name: Run stylua
