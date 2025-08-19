@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Lua & Luacheck
+      - name: Install Lua & luacheck
         run: |
           sudo apt-get update
           sudo apt-get install -y luarocks
@@ -28,10 +28,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Install Lua & Luacheck
+      - name: Install Lua & stylua
         run: |
           sudo apt-get update
           sudo apt-get install -y luarocks
-          sudo luarocks install luacheck
-      - name: Run luacheck
+          sudo luarocks install stylua
+      - name: Run stylua
         run: stylua ./
