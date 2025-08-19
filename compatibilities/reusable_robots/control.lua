@@ -24,11 +24,10 @@ end
 
 function reusable_robots.ensure_control_compatibility()
     -- Fill the `corpses` dict, that will be used to link each robot with its correct corpse
-    for key, value in pairs(prototypes["entity"]) do
-        -- Only affect custom entities
-        if string.find(key, utils.prefix("custom-")) then
+    for key, _ in pairs(prototypes["entity"]) do
+        if string.find(key, utils.prefix("idle-")) then
             -- Find the original name of the custom combat robot
-            local original_name = utils.string_remove(key, utils.prefix("custom%-"))
+            local original_name = utils.string_remove(key, utils.prefix("idle%-"))
             -- Link it to the correct corpse type
             corpses[key] = prototypes["item"][original_name .. "-corpse"]
         end

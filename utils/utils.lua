@@ -5,7 +5,11 @@ local utils = {}
 
 -- TODO Need a better name
 function utils.first(list, predicate)
-    if predicate(list) then
+    if list == nil then
+        error()
+    end
+
+    if not is_array(list) and predicate(list) then
         return list
     end
 
@@ -16,6 +20,24 @@ function utils.first(list, predicate)
     end
 
     error()
+end
+
+function utils.any(list, predicate)
+    if list == nil then
+        return false
+    end
+
+    if not is_array(list) then
+        return predicate(list)
+    end
+
+    for _, value in ipairs(list) do
+        if predicate(value) then
+            return true
+        end
+    end
+
+    return false
 end
 
 --- Take the `count` first element of the given table
@@ -41,7 +63,7 @@ end
 --- @param table table
 --- @return boolean isArray true if the table is an array, false if it is not a table or a table that is not an array
 --- Returns true for an empty table
-function isArray(table)
+function is_array(table)
 	if type(table) ~= "table" then
         return false
     end
@@ -82,7 +104,7 @@ function utils.override_table(base, override, data)
             if type(override_value) == "function" then
                 base[key] = override_value(value, data)
             -- Only merge recursively tables, not arrays
-            elseif type(override_value) == "table" and not isArray(override_value) then
+            elseif type(override_value) == "table" and not is_array(override_value) then
                 base[key] = utils.override_table(table.deepcopy(base[key]), override_value, data)
             else
                 base[key] = override_value
@@ -95,6 +117,20 @@ end
 function utils.create_prototype(prototype_data)
     local prototype = table.deepcopy(data.raw[prototype_data.type][prototype_data.based_on])
     return utils.override_table(prototype, prototype_data)
+end
+
+--- @param capsule data.CapsulePrototype
+function utils.get_projectile(capsule)
+    return data.raw["projectile"][capsule.capsule_action.attack_parameters.ammo_type.action[1].action_delivery.projectile]
+end
+
+--- @param entity_name string
+function utils.is_combat_robot(entity_name)
+    return data.raw["combat-robot"][entity_name] ~= nil
+end
+
+function utils.is_combat_robot_effect(effect)
+    return effect.entity_name and utils.is_combat_robot(effect.entity_name)
 end
 
 return utils

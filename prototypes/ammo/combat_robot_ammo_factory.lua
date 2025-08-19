@@ -1,18 +1,9 @@
 local utils = require("utils.utils")
 local ammo_factory = require("prototypes.ammo.ammo_factory")
 
---- @param capsule data.CapsulePrototype
-local function get_projectile(capsule)
-    return data.raw["projectile"][capsule.capsule_action.attack_parameters.ammo_type.action[1].action_delivery.projectile]
-end
-
-local function is_combat_robot(entity_name)
-    return entity_name == "defender" or entity_name == "distractor" or entity_name == "destroyer"
-end
-
 --- @param projectile data.ProjectilePrototype
 local function get_combat_robot_prototype(projectile)
-    local combat_robot_name = utils.first(projectile.action.action_delivery.target_effects, function(effect) return effect.entity_name and is_combat_robot(effect.entity_name) end).entity_name
+    local combat_robot_name = utils.first(projectile.action.action_delivery.target_effects, utils.is_combat_robot_effect).entity_name
     return data.raw["combat-robot"][combat_robot_name]
 end
 
@@ -30,7 +21,7 @@ end
 --- @param projectile data.ProjectilePrototype
 --- @param combat_robot data.CombatRobotPrototype
 local function update_projectile_combat_robot(projectile, combat_robot)
-    utils.first(projectile.action.action_delivery.target_effects, function(effect) return effect.entity_name and is_combat_robot(effect.entity_name) end).entity_name = combat_robot.name
+    utils.first(projectile.action.action_delivery.target_effects, utils.is_combat_robot_effect).entity_name = combat_robot.name
 end
 
 local combat_robot_ammo_factory = {}
@@ -40,9 +31,9 @@ function combat_robot_ammo_factory.create_combat_robot_ammo_prototypes(combat_ro
     -- Combat robots shouldn't go back to the turret that shot them, so we create an idle combat robot that doesn't
     -- follow its owner
     combat_robot_capsule = table.deepcopy(combat_robot_capsule)
-    local combat_robot_prototype = get_combat_robot_prototype(get_projectile(combat_robot_capsule))
+    local combat_robot_prototype = get_combat_robot_prototype(utils.get_projectile(combat_robot_capsule))
     local idle_combat_robot = create_idle_combat_robot(combat_robot_prototype)
-    update_projectile_combat_robot(get_projectile(combat_robot_capsule), idle_combat_robot)
+    update_projectile_combat_robot(utils.get_projectile(combat_robot_capsule), idle_combat_robot)
     local prototypes = ammo_factory.create_ammo_prototypes(combat_robot_capsule, data.raw["technology"]["automation"])
     table.insert(prototypes, idle_combat_robot)
     return prototypes
