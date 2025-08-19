@@ -18,6 +18,7 @@ end
 local function create_recipe_prototype(name, result_item)
     local recipe = table.deepcopy(data.raw["recipe"][based_on])
     recipe.name = utils.prefix(name .. "-ammo-recipe")
+    recipe.hide_from_player_crafting = true
     recipe.ingredients =
     {
         {
