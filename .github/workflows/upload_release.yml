@@ -7,10 +7,12 @@ on:
 
 jobs:
 
-  Validate-release:
+  validate-release:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -18,7 +20,6 @@ jobs:
       - name: Get previous version
         id: get_previous_version
         run: |
-          pip install jq
           git fetch origin main
           prev_version=$(git show origin/main:info.json | jq -r '.version')
           echo "version=$prev_version" >> $GITHUB_OUTPUT
@@ -39,4 +40,4 @@ jobs:
       - name: Create zip
         run: make archive
       - name: Upload new release
-        run: python .github/upload.py
+        run: python .github/upload.py *.zip
