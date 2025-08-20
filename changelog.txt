@@ -1,4 +1,14 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.4.0
+Date: 2025-08-20
+  Major Features:
+    - Added compatibility to all capsules, including from other mods. This also includes grenades and cluster grenades.
+  Minor Features:
+    - Capsule ammos are no longer craftable by hand. This is mainly aimed at reducing the crafting tab clutter.
+  Graphics:
+    - The generic rocket projectile was replaced, each ammo now uses the correct capsule projectile
+    - Capsule ammos now use the same icon as the original capsule
+---------------------------------------------------------------------------------------------------
 Version: 1.3.1
 Date: 2025-01-15
   Bugfixes:

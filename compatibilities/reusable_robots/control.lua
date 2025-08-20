@@ -4,16 +4,15 @@ local corpses = {}
 
 local reusable_robots = {}
 
-function create_robot_corpse(event)
+local function create_robot_corpse(event)
     local robot = event.robot
     -- Only trigger this when the robot that died comes from this mod
     if corpses[robot.name] then
         -- Drop the corpse on the ground
-        robot.surface.spill_item_stack(
-        {
+        robot.surface.spill_item_stack({
             position = robot.position,
             -- Select the correct corpse type for this type of robot
-            stack = { name = corpses[robot.name], },
+            stack = { name = corpses[robot.name] },
             -- Auto loot this item when a player walks on it
             enable_looted = true,
             -- Always mark this item for deconsruction
@@ -24,11 +23,10 @@ end
 
 function reusable_robots.ensure_control_compatibility()
     -- Fill the `corpses` dict, that will be used to link each robot with its correct corpse
-    for key, value in pairs(prototypes["entity"]) do
-        -- Only affect custom entities
-        if string.find(key, utils.prefix("custom-")) then
+    for key, _ in pairs(prototypes["entity"]) do
+        if string.find(key, utils.prefix("idle-")) then
             -- Find the original name of the custom combat robot
-            local original_name = utils.string_remove(key, utils.prefix("custom%-"))
+            local original_name = utils.string_remove(key, utils.prefix("idle%-"))
             -- Link it to the correct corpse type
             corpses[key] = prototypes["item"][original_name .. "-corpse"]
         end
