@@ -16,7 +16,7 @@ capsule_launcher_dataset.entity_data = {
         cooldown = 600,
     },
     prepare_range = 55,
-    surface_conditions = { { property = "gravity", min = 0.1, } },
+    surface_conditions = { { property = "gravity", min = 0.1 } },
 }
 
 capsule_launcher_dataset.item_data = {
@@ -76,8 +76,7 @@ capsule_launcher_dataset.technology_prototype = {
     icon_size = 256,
     unit = {
         count = 200,
-        ingredients =
-        {
+        ingredients = {
             { "automation-science-pack", 1 },
             { "logistic-science-pack", 1 },
             { "military-science-pack", 1 },
