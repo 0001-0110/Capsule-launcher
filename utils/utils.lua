@@ -64,28 +64,28 @@ end
 --- @return boolean isArray true if the table is an array, false if it is not a table or a table that is not an array
 --- Returns true for an empty table
 function utils.is_array(table)
-	if type(table) ~= "table" then
+    if type(table) ~= "table" then
         return false
     end
 
-	-- Check if all the table keys are numerical and count their number
-	local count = 0
-	for key, _ in pairs(table) do
-		if type(key) ~= "number" then
+    -- Check if all the table keys are numerical and count their number
+    local count = 0
+    for key, _ in pairs(table) do
+        if type(key) ~= "number" then
             return false
         else
             count = count + 1
         end
-	end
+    end
 
-	-- All keys are numerical. now let's see if they are sequential and start with 1
-	for i = 1, count do
-		-- The value might be "nil", in that case "not table[i]" isn't enough, that's why we check the type
-		if not table[i] and type(table[i]) ~= "nil" then
+    -- All keys are numerical. now let's see if they are sequential and start with 1
+    for i = 1, count do
+        -- The value might be "nil", in that case "not table[i]" isn't enough, that's why we check the type
+        if not table[i] and type(table[i]) ~= "nil" then
             return false
         end
-	end
-	return true
+    end
+    return true
 end
 
 --- Recursively merges override into base.
@@ -103,7 +103,7 @@ function utils.override_table(base, override, data)
         if override_value then
             if type(override_value) == "function" then
                 base[key] = override_value(value, data)
-            -- Only merge recursively tables, not arrays
+                -- Only merge recursively tables, not arrays
             elseif type(override_value) == "table" and not utils.is_array(override_value) then
                 base[key] = utils.override_table(table.deepcopy(base[key]), override_value, data)
             else
@@ -121,7 +121,8 @@ end
 
 --- @param capsule data.CapsulePrototype
 function utils.get_projectile(capsule)
-    return data.raw["projectile"][capsule.capsule_action.attack_parameters.ammo_type.action[1].action_delivery.projectile]
+    local projectile_name = capsule.capsule_action.attack_parameters.ammo_type.action[1].action_delivery.projectile
+    return data.raw["projectile"][projectile_name]
 end
 
 --- @param entity_name string

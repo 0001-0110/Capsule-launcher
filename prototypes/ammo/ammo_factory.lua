@@ -19,8 +19,7 @@ local function create_recipe_prototype(name, result_item)
     local recipe = table.deepcopy(data.raw["recipe"][based_on])
     recipe.name = utils.prefix(name .. "-ammo-recipe")
     recipe.hide_from_player_crafting = true
-    recipe.ingredients =
-    {
+    recipe.ingredients = {
         {
             type = "item",
             name = "iron-plate",
@@ -32,8 +31,7 @@ local function create_recipe_prototype(name, result_item)
             amount = 1,
         },
     }
-    recipe.results =
-    {
+    recipe.results = {
         {
             type = "item",
             name = result_item.name,
@@ -78,7 +76,7 @@ local function update_technology(capsule, new_recipe)
         error()
     end
 
-    table.insert(capsule_technology.effects, { type = "unlock-recipe", recipe = new_recipe.name, })
+    table.insert(capsule_technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
 end
 
 local ammo_factory = {}
@@ -90,7 +88,7 @@ function ammo_factory.create_ammo_prototypes(capsule)
     local item = create_item_prototype(capsule, projectile)
     local recipe = create_recipe_prototype(capsule.name, item)
     update_technology(capsule, recipe)
-    return { item, recipe, }
+    return { item, recipe }
 end
 
 return ammo_factory

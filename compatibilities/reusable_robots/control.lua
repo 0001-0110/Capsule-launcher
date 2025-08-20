@@ -9,11 +9,10 @@ local function create_robot_corpse(event)
     -- Only trigger this when the robot that died comes from this mod
     if corpses[robot.name] then
         -- Drop the corpse on the ground
-        robot.surface.spill_item_stack(
-        {
+        robot.surface.spill_item_stack({
             position = robot.position,
             -- Select the correct corpse type for this type of robot
-            stack = { name = corpses[robot.name], },
+            stack = { name = corpses[robot.name] },
             -- Auto loot this item when a player walks on it
             enable_looted = true,
             -- Always mark this item for deconsruction

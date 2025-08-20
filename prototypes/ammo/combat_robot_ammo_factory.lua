@@ -3,7 +3,8 @@ local ammo_factory = require("prototypes.ammo.ammo_factory")
 
 --- @param projectile data.ProjectilePrototype
 local function get_combat_robot_prototype(projectile)
-    local combat_robot_name = utils.first(projectile.action.action_delivery.target_effects, utils.is_combat_robot_effect).entity_name
+    local combat_robot_name =
+        utils.first(projectile.action.action_delivery.target_effects, utils.is_combat_robot_effect).entity_name
     return data.raw["combat-robot"][combat_robot_name]
 end
 
@@ -21,7 +22,8 @@ end
 --- @param projectile data.ProjectilePrototype
 --- @param combat_robot data.CombatRobotPrototype
 local function update_projectile_combat_robot(projectile, combat_robot)
-    utils.first(projectile.action.action_delivery.target_effects, utils.is_combat_robot_effect).entity_name = combat_robot.name
+    utils.first(projectile.action.action_delivery.target_effects, utils.is_combat_robot_effect).entity_name =
+        combat_robot.name
 end
 
 local combat_robot_ammo_factory = {}

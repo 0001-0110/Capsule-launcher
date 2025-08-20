@@ -16,7 +16,7 @@ capsule_launcher_dataset.entity_data = {
         cooldown = 600,
     },
     prepare_range = 55,
-    surface_conditions = { { property = "gravity", min = 0.1, }, },
+    surface_conditions = { { property = "gravity", min = 0.1, } },
 }
 
 capsule_launcher_dataset.item_data = {
@@ -26,15 +26,14 @@ capsule_launcher_dataset.item_data = {
     place_result = capsule_launcher_dataset.entity_data.name,
 }
 
-capsule_launcher_dataset.entity_data.minable = { result = capsule_launcher_dataset.item_data.name, }
+capsule_launcher_dataset.entity_data.minable = { result = capsule_launcher_dataset.item_data.name }
 
 capsule_launcher_dataset.recipe_data = {
     type = "recipe",
     based_on = based_on,
     name = utils.prefix("capsule-launcher-recipe"),
     enabled = false,
-    ingredients =
-    {
+    ingredients = {
         {
             type = "item",
             name = "steel-plate",
@@ -61,42 +60,38 @@ capsule_launcher_dataset.recipe_data = {
             amount = 4,
         },
     },
-    results =
-    {
+    results = {
         {
             type = "item",
             name = capsule_launcher_dataset.item_data.name,
             amount = 1,
-        }
+        },
     },
 }
 
-capsule_launcher_dataset.technology_prototype =
-{
+capsule_launcher_dataset.technology_prototype = {
     type = "technology",
     name = utils.prefix("capsule-launcher-technology"),
     icon = "__space-age__/graphics/technology/rocket-turret.png",
     icon_size = 256,
-    unit =
-    {
+    unit = {
         count = 200,
         ingredients =
         {
-            {"automation-science-pack", 1},
-            {"logistic-science-pack", 1},
-            {"military-science-pack", 1},
-            {"chemical-science-pack", 1},
+            { "automation-science-pack", 1 },
+            { "logistic-science-pack", 1 },
+            { "military-science-pack", 1 },
+            { "chemical-science-pack", 1 },
         },
         time = 30,
     },
-    effects =
-    {
+    effects = {
         {
             type = "unlock-recipe",
             recipe = capsule_launcher_dataset.recipe_data.name,
         },
     },
-    prerequisites = { "rocketry", },
+    prerequisites = { "rocketry" },
 }
 
 return capsule_launcher_dataset
