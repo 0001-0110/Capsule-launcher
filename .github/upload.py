@@ -8,7 +8,7 @@ def get_mod_name():
         return json.load(info_file)["name"]
 
 MOD_PORTAL_URL = "https://mods.factorio.com"
-INIT_UPLOAD_URL = f"{MOD_PORTAL_URL}/api/v2/mods/init_upload"
+INIT_UPLOAD_URL = f"{MOD_PORTAL_URL}/api/v2/mods/releases/init_upload"
 
 modname = get_mod_name()
 filepath = sys.argv[1]
