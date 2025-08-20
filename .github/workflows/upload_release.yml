@@ -1,7 +1,7 @@
-name: Validate release
+name: Upload new release
 
 on:
-  pull_request:
+  push:
     branches:
       - "main"
 
@@ -25,3 +25,19 @@ jobs:
           echo "version=$prev_version" >> $GITHUB_OUTPUT
       - name: Validate all files
         run: python .github/validate.py ${{ steps.get_previous_version.outputs.version }}
+
+  upload-release:
+    runs-on: ubuntu-latest
+    needs: validate-release
+    env:
+      MOD_UPLOAD_API_KEY: ${{ secrets.MOD_UPLOAD_API_KEY }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Create zip
+        run: make archive
+      - name: Upload new release
+        run: python .github/upload.py *.zip
