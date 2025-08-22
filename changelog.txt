@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.4.1
+Date: 2025-08-22
+  Bugfixes:
+    - Fixed the capsule ammo being unlocked at the wrong technology when other mods add alternate recipes
+---------------------------------------------------------------------------------------------------
 Version: 1.4.0
 Date: 2025-08-20
   Major Features:
