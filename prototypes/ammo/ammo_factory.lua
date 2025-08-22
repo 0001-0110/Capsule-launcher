@@ -49,8 +49,9 @@ local function update_technology(capsule, new_recipe)
 
     local capsule_recipe = nil
     for _, recipe in pairs(data.raw["recipe"]) do
-        -- We are searching for the real recipes, so we ignore recycling recipes that are not linked with any technology
-        if not string.match(recipe.name, "recycling") and recipe.results ~= nil then
+        -- Only consider recipes whose name matches the item name. This filters out alternate or recycling recipes added
+        -- by other mods, including recycling recipes, leaving only the "real" base recipe that unlocks the item.
+        if recipe.name == capsule.name and recipe.results ~= nil then
             for _, result in pairs(recipe.results) do
                 if result.name == capsule.name then
                     capsule_recipe = recipe
