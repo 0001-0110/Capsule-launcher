@@ -42,7 +42,7 @@ local function create_recipe_prototype(name, result_item)
 end
 
 local function machin(technology, recipe)
-    for effect_index, effect in pairs(technology.effects) do
+    for effect_index, effect in pairs(technology.effects or {}) do
         if effect.type == "unlock-recipe" and effect.recipe == recipe.name then
             return effect_index
         end
@@ -50,8 +50,27 @@ local function machin(technology, recipe)
     return false
 end
 
-local function truc(technology, recipe)
-    
+local function truc(technology, recipe, root)
+    if not root and machin(technology, recipe) then
+        return true
+    end
+
+    local count = 0
+    for _, effect in pairs(technology.effects or {}) do
+        if effect.type == "unlock-recipe" and effect.recipe == recipe.name then
+            count = count + 1
+        end
+    end
+    if count > 1 then
+        return true
+    end
+
+    for _, prerequisite in pairs(technology.prerequisites or {}) do
+        if truc(data.raw["technology"][prerequisite], recipe, false) then
+            return true
+        end
+    end
+    return false
 end
 
 --- Update the existing technology effects to add the new recipe to unlock
@@ -77,11 +96,11 @@ local function update_technologies(capsule, new_recipe)
     end
 
     -- Remove the capsule ammo from all technologies where one required technology already has the same unlock recipe
-    -- for _, technology in pairs(data.raw["technology"]) do
-    --     if machin(technology, new_recipe) and truc(technology, new_recipe) then
-    --         table.remove(technology.effects, machin(technology, new_recipe))
-    --     end
-    -- end
+    for _, technology in pairs(data.raw["technology"]) do
+        if machin(technology, new_recipe) and truc(technology, new_recipe, true) then
+            table.remove(technology.effects, machin(technology, new_recipe))
+        end
+    end
 end
 
 local ammo_factory = {}
