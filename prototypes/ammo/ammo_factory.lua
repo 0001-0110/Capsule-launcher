@@ -41,43 +41,47 @@ local function create_recipe_prototype(name, result_item)
     return recipe
 end
 
+local function machin(technology, recipe)
+    for effect_index, effect in pairs(technology.effects) do
+        if effect.type == "unlock-recipe" and effect.recipe == recipe.name then
+            return effect_index
+        end
+    end
+    return false
+end
+
+local function truc(technology, recipe)
+    
+end
+
 --- Update the existing technology effects to add the new recipe to unlock
 --- @param capsule data.CapsulePrototype
 --- @param new_recipe data.RecipePrototype
-local function update_technology(capsule, new_recipe)
-    -- TODO These two loops are really similar, some factorization would be nice
-
-    local capsule_recipe = nil
+local function update_technologies(capsule, new_recipe)
+    -- Add the capsule ammo to each technology that contains at least one recipe that allows you to craft the base
+    -- capsule
     for _, recipe in pairs(data.raw["recipe"]) do
-        -- Only consider recipes whose name matches the item name. This filters out alternate or recycling recipes added
-        -- by other mods, including recycling recipes, leaving only the "real" base recipe that unlocks the item.
-        if recipe.name == capsule.name and recipe.results ~= nil then
+        if recipe.results ~= nil then
             for _, result in pairs(recipe.results) do
                 if result.name == capsule.name then
-                    capsule_recipe = recipe
+                    for _, technology in pairs(data.raw["technology"]) do
+                        if technology.effects ~= nil then
+                            if machin(technology, recipe) then
+                                table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
+                            end
+                        end
+                    end
                 end
             end
         end
     end
-    if capsule_recipe == nil then
-        error()
-    end
 
-    local capsule_technology = nil
-    for _, technology in pairs(data.raw["technology"]) do
-        if technology.effects ~= nil then
-            for _, effect in pairs(technology.effects) do
-                if effect.type == "unlock-recipe" and effect.recipe == capsule_recipe.name then
-                    capsule_technology = technology
-                end
-            end
-        end
-    end
-    if capsule_technology == nil then
-        error()
-    end
-
-    table.insert(capsule_technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
+    -- Remove the capsule ammo from all technologies where one required technology already has the same unlock recipe
+    -- for _, technology in pairs(data.raw["technology"]) do
+    --     if machin(technology, new_recipe) and truc(technology, new_recipe) then
+    --         table.remove(technology.effects, machin(technology, new_recipe))
+    --     end
+    -- end
 end
 
 local ammo_factory = {}
@@ -88,7 +92,7 @@ function ammo_factory.create_ammo_prototypes(capsule)
     local projectile = capsule.capsule_action.attack_parameters.ammo_type
     local item = create_item_prototype(capsule, projectile)
     local recipe = create_recipe_prototype(capsule.name, item)
-    update_technology(capsule, recipe)
+    update_technologies(capsule, recipe)
     return { item, recipe }
 end
 
