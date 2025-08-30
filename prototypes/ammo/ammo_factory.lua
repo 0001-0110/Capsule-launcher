@@ -87,6 +87,8 @@ local function get_item_recipes(item)
     return Stream.from(data.raw["recipe"]):where(function(_, recipe)
         return Stream.of(recipe.results):any(function(_, result)
             return result.name == item.name
+        end) and not Stream.of(recipe.ingredients):any(function(_, ingredient)
+            return ingredient.name == item.name
         end)
     end)
 end
