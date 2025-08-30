@@ -1,3 +1,4 @@
+local Stream = require("__toolbelt-22__.tools.Stream")
 local utils = require("utils.utils")
 local ammo_category = require("prototypes.ammo_category")
 
@@ -41,7 +42,9 @@ local function create_recipe_prototype(name, result_item)
     return recipe
 end
 
-local function machin(technology, recipe)
+--- @param recipe data.RecipePrototype
+---@param technology data.TechnologyPrototype
+local function is_unlocked_by(recipe, technology)
     for effect_index, effect in pairs(technology.effects or {}) do
         if effect.type == "unlock-recipe" and effect.recipe == recipe.name then
             return effect_index
@@ -50,8 +53,12 @@ local function machin(technology, recipe)
     return false
 end
 
-local function truc(technology, recipe, root)
-    if not root and machin(technology, recipe) then
+local function is_redundant_unlock(recipe, technology, visited)
+    if visited[technology.name] == false then
+        return false
+    end
+    if visited[technology.name] == true or is_unlocked_by(recipe, technology) then
+        visited[technology.name] = true
         return true
     end
 
@@ -66,11 +73,22 @@ local function truc(technology, recipe, root)
     end
 
     for _, prerequisite in pairs(technology.prerequisites or {}) do
-        if truc(data.raw["technology"][prerequisite], recipe, false) then
+        if is_redundant_unlock(recipe, data.raw["technology"][prerequisite], visited) then
+            visited[technology.name] = true
             return true
         end
     end
+
+    visited[technology.name] = false
     return false
+end
+
+local function get_item_recipes(item)
+    return Stream.from(data.raw["recipe"]):where(function(_, recipe)
+        return Stream.of(recipe.results):any(function(_, result)
+            return result.name == item.name
+        end)
+    end)
 end
 
 --- Update the existing technology effects to add the new recipe to unlock
@@ -79,17 +97,11 @@ end
 local function update_technologies(capsule, new_recipe)
     -- Add the capsule ammo to each technology that contains at least one recipe that allows you to craft the base
     -- capsule
-    for _, recipe in pairs(data.raw["recipe"]) do
-        if recipe.results ~= nil then
-            for _, result in pairs(recipe.results) do
-                if result.name == capsule.name then
-                    for _, technology in pairs(data.raw["technology"]) do
-                        if technology.effects ~= nil then
-                            if machin(technology, recipe) then
-                                table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
-                            end
-                        end
-                    end
+    for _, recipe in get_item_recipes(capsule):iterate() do
+        for _, technology in pairs(data.raw["technology"]) do
+            if technology.effects ~= nil then
+                if is_unlocked_by(recipe, technology) then
+                    table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
                 end
             end
         end
@@ -97,8 +109,11 @@ local function update_technologies(capsule, new_recipe)
 
     -- Remove the capsule ammo from all technologies where one required technology already has the same unlock recipe
     for _, technology in pairs(data.raw["technology"]) do
-        if machin(technology, new_recipe) and truc(technology, new_recipe, true) then
-            table.remove(technology.effects, machin(technology, new_recipe))
+        for _, prerequisite in pairs(technology.prerequisites or {}) do
+            if is_unlocked_by(new_recipe, technology) and is_redundant_unlock(new_recipe, data.raw["technology"][prerequisite], {}) then
+                log("Removing " .. new_recipe.name .. " from " .. technology.name)
+                table.remove(technology.effects, is_unlocked_by(new_recipe, technology))
+            end
         end
     end
 end
