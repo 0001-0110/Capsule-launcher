@@ -116,7 +116,10 @@ local function update_technologies(capsule, new_recipe)
     -- Remove the capsule ammo from all technologies where one required technology already has the same unlock recipe
     for _, technology in pairs(data.raw["technology"]) do
         for _, prerequisite in pairs(technology.prerequisites or {}) do
-            if is_recipe_unlocked_by(new_recipe, technology) and is_recipe_unlocked_in_tree(new_recipe, data.raw["technology"][prerequisite]) then
+            if
+                is_recipe_unlocked_by(new_recipe, technology)
+                and is_recipe_unlocked_in_tree(new_recipe, data.raw["technology"][prerequisite])
+            then
                 table.remove(technology.effects, get_effect_index(new_recipe, technology))
             end
         end
