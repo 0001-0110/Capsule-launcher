@@ -4,10 +4,9 @@ local ammo_factory = require("prototypes.ammo.ammo_factory")
 
 --- @param projectile data.ProjectilePrototype
 local function get_combat_robot_prototype(projectile)
-    local _, combat_robot =
-        Stream.of(projectile.action.action_delivery.target_effects):first(function(_, target_effect)
-            return utils.is_combat_robot_effect(target_effect)
-        end)
+    local _, combat_robot = Stream.of(projectile.action.action_delivery.target_effects):first(function(_, target_effect)
+        return utils.is_combat_robot_effect(target_effect)
+    end)
     local combat_robot_name = combat_robot.entity_name
     return data.raw["combat-robot"][combat_robot_name]
 end
@@ -26,9 +25,10 @@ end
 --- @param projectile data.ProjectilePrototype
 --- @param combat_robot data.CombatRobotPrototype
 local function update_projectile_combat_robot(projectile, combat_robot)
-    local _, projectile_effect = Stream.of(projectile.action.action_delivery.target_effects):first(function(_, target_effect)
-        return utils.is_combat_robot_effect(target_effect)
-    end)
+    local _, projectile_effect = Stream.of(projectile.action.action_delivery.target_effects)
+        :first(function(_, target_effect)
+            return utils.is_combat_robot_effect(target_effect)
+        end)
     projectile_effect.entity_name = combat_robot.name
 end
 
