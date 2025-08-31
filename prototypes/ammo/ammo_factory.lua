@@ -106,7 +106,10 @@ local function update_technologies(capsule, new_recipe)
     for _, recipe in producing_recipes(capsule):iterate() do
         for _, technology in pairs(data.raw["technology"]) do
             if technology.effects ~= nil then
-                if is_recipe_unlocked_by(recipe, technology) then
+                -- Check that the base capsule is unlocked by this technology, but that the capsule ammo recipe hasn't
+                -- already been added (in cases where a single technology could unlock multiple alternate recipes for
+                -- the capsule
+                if is_recipe_unlocked_by(recipe, technology) and not is_recipe_unlocked_by(new_recipe, technology) then
                     table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
                 end
             end
