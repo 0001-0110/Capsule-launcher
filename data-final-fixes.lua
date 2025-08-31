@@ -1,4 +1,5 @@
 local utils = require("utils.utils")
+local Stream = require("__toolbelt-22__.tools.stream")
 local capsule_ammo_factory = require("prototypes.ammo.capsule_ammo_factory")
 local combat_robot_ammo_factory = require("prototypes.ammo.combat_robot_ammo_factory")
 
@@ -10,10 +11,11 @@ end
 --- @param capsule data.CapsulePrototype
 local function is_combat_robot_capsule(capsule)
     local projectile = utils.get_projectile(capsule)
-    -- TODO This is really hard to read, and could use a slight rework
-    return utils.any(projectile.action, function(action)
-        return utils.any(action.action_delivery, function(action_delivery)
-            return utils.any(action_delivery.target_effects, utils.is_combat_robot_effect)
+    return Stream.of(projectile.action):any(function(_, action)
+        return Stream.of(action.action_delivery):any(function(_, action_delivery)
+            return Stream.of(action_delivery.target_effects):any(function(_, effect)
+                return utils.is_combat_robot_effect(effect)
+            end)
         end)
     end)
 end

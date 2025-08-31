@@ -1,4 +1,4 @@
-.PHONY: clean
+.PHONY: archive clean
 
 archive: clean
 	MOD_NAME=$$(jq -r '.name' info.json) && \

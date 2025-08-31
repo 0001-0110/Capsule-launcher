@@ -1,3 +1,4 @@
+local Stream = require("__toolbelt-22__.tools.Stream")
 local utils = require("utils.utils")
 local ammo_category = require("prototypes.ammo_category")
 
@@ -41,36 +42,59 @@ local function create_recipe_prototype(name, result_item)
     return recipe
 end
 
-local function machin(technology, recipe)
-    for effect_index, effect in pairs(technology.effects or {}) do
-        if effect.type == "unlock-recipe" and effect.recipe == recipe.name then
-            return effect_index
-        end
-    end
-    return false
+--- @param recipe data.RecipePrototype
+--- @param effects data.Modifier[] | nil
+local function get_effect_index(recipe, effects)
+    return Stream.of(effects):first_or_default(function(_, effect)
+        return effect.type == "unlock-recipe" and effect.recipe == recipe.name
+    end)
 end
 
-local function truc(technology, recipe, root)
-    if not root and machin(technology, recipe) then
-        return true
-    end
+--- @param recipe data.RecipePrototype
+--- @param technology data.TechnologyPrototype
+local function is_recipe_unlocked_by(recipe, technology)
+    return get_effect_index(recipe, technology.effects) ~= nil
+end
 
-    local count = 0
-    for _, effect in pairs(technology.effects or {}) do
-        if effect.type == "unlock-recipe" and effect.recipe == recipe.name then
-            count = count + 1
-        end
+--- Recursively checks if the given recipe is unlocked by a technology or any of its prerequisites
+--- @param recipe data.RecipePrototype
+--- @param technology data.TechnologyPrototype
+--- @param visited table<string, boolean> | nil
+--- @return boolean
+local function is_recipe_unlocked_in_tree(recipe, technology, visited)
+    visited = visited or {}
+
+    if visited[technology.name] then
+        return visited[technology.name]
     end
-    if count > 1 then
+    if is_recipe_unlocked_by(recipe, technology) then
+        visited[technology.name] = true
         return true
     end
 
     for _, prerequisite in pairs(technology.prerequisites or {}) do
-        if truc(data.raw["technology"][prerequisite], recipe, false) then
+        if is_recipe_unlocked_in_tree(recipe, data.raw["technology"][prerequisite], visited) then
+            visited[technology.name] = true
             return true
         end
     end
+
+    visited[technology.name] = false
     return false
+end
+
+--- Returns all recipes that produce the given item, excluding those that also use the item as an ingredient
+--- (like recycling recipes).
+--- @param item data.ItemPrototype
+--- @return Stream<number, data.RecipePrototype>
+local function producing_recipes(item)
+    return Stream.from(data.raw["recipe"]):where(function(_, recipe)
+        return Stream.of(recipe.results):any(function(_, result)
+            return result.name == item.name
+        end) and not Stream.of(recipe.ingredients):any(function(_, ingredient)
+            return ingredient.name == item.name
+        end)
+    end)
 end
 
 --- Update the existing technology effects to add the new recipe to unlock
@@ -79,17 +103,14 @@ end
 local function update_technologies(capsule, new_recipe)
     -- Add the capsule ammo to each technology that contains at least one recipe that allows you to craft the base
     -- capsule
-    for _, recipe in pairs(data.raw["recipe"]) do
-        if recipe.results ~= nil then
-            for _, result in pairs(recipe.results) do
-                if result.name == capsule.name then
-                    for _, technology in pairs(data.raw["technology"]) do
-                        if technology.effects ~= nil then
-                            if machin(technology, recipe) then
-                                table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
-                            end
-                        end
-                    end
+    for _, recipe in producing_recipes(capsule):iterate() do
+        for _, technology in pairs(data.raw["technology"]) do
+            if technology.effects ~= nil then
+                -- Check that the base capsule is unlocked by this technology, but that the capsule ammo recipe hasn't
+                -- already been added (in cases where a single technology could unlock multiple alternate recipes for
+                -- the capsule
+                if is_recipe_unlocked_by(recipe, technology) and not is_recipe_unlocked_by(new_recipe, technology) then
+                    table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
                 end
             end
         end
@@ -97,8 +118,13 @@ local function update_technologies(capsule, new_recipe)
 
     -- Remove the capsule ammo from all technologies where one required technology already has the same unlock recipe
     for _, technology in pairs(data.raw["technology"]) do
-        if machin(technology, new_recipe) and truc(technology, new_recipe, true) then
-            table.remove(technology.effects, machin(technology, new_recipe))
+        for _, prerequisite in pairs(technology.prerequisites or {}) do
+            if
+                is_recipe_unlocked_by(new_recipe, technology)
+                and is_recipe_unlocked_in_tree(new_recipe, data.raw["technology"][prerequisite])
+            then
+                table.remove(technology.effects, get_effect_index(new_recipe, technology))
+            end
         end
     end
 end
