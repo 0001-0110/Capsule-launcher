@@ -1,5 +1,5 @@
-local Stream = require("__toolbelt-22__.tools.Stream")
 local utils = require("utils.utils")
+local Stream = require("__toolbelt-22__.tools.stream")
 local ammo_category = require("prototypes.ammo_category")
 
 local based_on = "rocket"
