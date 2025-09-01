@@ -16,6 +16,19 @@ function utils.prefix(name)
     return string.format("%s_%s", PREFIX, name)
 end
 
+local function dump(o)
+   if type(o) == 'table' then
+      local s = '{ '
+      for k,v in pairs(o) do
+         if type(k) ~= 'number' then k = '"'..k..'"' end
+         s = s .. '['..k..'] = ' .. dump(v) .. ','
+      end
+      return s .. '} '
+   else
+      return tostring(o)
+   end
+end
+
 --- Recursively merges override into base.
 --- If override[key] is a function, calls it with base[key] and data and assigns result.
 --- If both base[key] and override[key] are tables, merges recursively.
@@ -25,18 +38,16 @@ end
 --- @param data any
 --- @return table
 function utils.override_table(base, override, data)
-    for key, value in pairs(base) do
-        local override_value = override[key]
-
-        if override_value then
-            if type(override_value) == "function" then
-                base[key] = override_value(value, data)
-                -- Only merge recursively tables, not arrays
-            elseif type(override_value) == "table" and not tools_utils.is_array(override_value) then
-                base[key] = utils.override_table(table.deepcopy(base[key]), override_value, data)
-            else
-                base[key] = override_value
-            end
+    for key, override_value in pairs(override) do
+        if type(override_value) == "function" then
+            log("Overriding " .. key .. " from " .. dump(base[key]) .. " to " .. dump(override_value(base[key], data)))
+            base[key] = override_value(base[key], data)
+        elseif type(override_value) == "table" and not tools_utils.is_array(override_value) then
+            -- Only merge recursively tables, not arrays
+            base[key] = utils.override_table(table.deepcopy(base[key]), override_value, data)
+        else
+            log("Overriding " .. key .. " from " .. dump(base[key]) .. " to " .. dump(override_value))
+            base[key] = override_value
         end
     end
     return base
@@ -44,7 +55,9 @@ end
 
 function utils.create_prototype(prototype_data)
     local prototype = table.deepcopy(data.raw[prototype_data.type][prototype_data.based_on])
-    return utils.override_table(prototype, prototype_data)
+    local result = utils.override_table(prototype, prototype_data)
+    log(dump(result))
+    return result
 end
 
 --- @param capsule data.CapsulePrototype
