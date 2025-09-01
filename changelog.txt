@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.4.4
+Date: 2025-09-01
+  Bugfixes:
+    - Fixed the turret missing its surface condition, making it possible to place on a space platform
+---------------------------------------------------------------------------------------------------
 Version: 1.4.3
 Date: 2025-08-31
   Optimizations:
