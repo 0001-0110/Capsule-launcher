@@ -23,10 +23,7 @@ If you’d like to contribute, feel free to reach out!
 
   - **New Graphics**:
     - Updated turret and capsule visuals to enhance the look and feel of the mod.
-    - I don't have the skills to create new graphics myself, but if you do and are interested, please reach out!
-
-  - **Standalone Mode**:
-    - Support for using this mod without the Space Age mod (discussion ongoing).
+    - Would allow this mod to work without the Space Age mod.
 
 ---
 

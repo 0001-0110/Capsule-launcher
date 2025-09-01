@@ -7,7 +7,7 @@ local capsule_launcher_dataset = {}
 
 capsule_launcher_dataset.entity_data = {
     type = "ammo-turret",
-    based_on = "rocket-turret",
+    based_on = based_on,
     name = utils.prefix("capsule-launcher-entity"),
     attack_parameters = {
         ammo_category = ammo_category.name,

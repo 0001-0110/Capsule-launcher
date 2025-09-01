@@ -25,18 +25,14 @@ end
 --- @param data any
 --- @return table
 function utils.override_table(base, override, data)
-    for key, value in pairs(base) do
-        local override_value = override[key]
-
-        if override_value then
-            if type(override_value) == "function" then
-                base[key] = override_value(value, data)
-                -- Only merge recursively tables, not arrays
-            elseif type(override_value) == "table" and not tools_utils.is_array(override_value) then
-                base[key] = utils.override_table(table.deepcopy(base[key]), override_value, data)
-            else
-                base[key] = override_value
-            end
+    for key, override_value in pairs(override) do
+        if type(override_value) == "function" then
+            base[key] = override_value(base[key], data)
+        elseif type(override_value) == "table" and not tools_utils.is_array(override_value) then
+            -- Only merge recursively tables, not arrays
+            base[key] = utils.override_table(table.deepcopy(base[key]), override_value, data)
+        else
+            base[key] = override_value
         end
     end
     return base
