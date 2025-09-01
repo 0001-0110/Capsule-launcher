@@ -40,8 +40,7 @@ end
 
 function utils.create_prototype(prototype_data)
     local prototype = table.deepcopy(data.raw[prototype_data.type][prototype_data.based_on])
-    local result = utils.override_table(prototype, prototype_data)
-    return result
+    return utils.override_table(prototype, prototype_data)
 end
 
 --- @param capsule data.CapsulePrototype
