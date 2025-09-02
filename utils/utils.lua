@@ -1,5 +1,6 @@
 -- TODO Find a better name
 local tools_utils = require("__toolbelt-22__.utils.utils")
+local Stream = require("__toolbelt-22__.tools.stream")
 
 -- cl stands for capsule launcher
 local PREFIX = "22_cl"
@@ -43,10 +44,18 @@ function utils.create_prototype(prototype_data)
     return utils.override_table(prototype, prototype_data)
 end
 
+-- TODO This is hideous
 --- @param capsule data.CapsulePrototype
 function utils.get_projectile(capsule)
-    local projectile_name = capsule.capsule_action.attack_parameters.ammo_type.action[1].action_delivery.projectile
-    return data.raw["projectile"][projectile_name]
+    local _, action = Stream.of(capsule.capsule_action.attack_parameters.ammo_type.action):first_or_default(function(_, action)
+        return Stream.of(action.action_delivery):any(function(_, action_delivery)
+            return action_delivery.projectile and data.raw["projectile"][action_delivery.projectile]
+        end)
+    end)
+    local _, action_delivery = Stream.of(action.action_delivery):first_or_default(function(_, action_delivery)
+        return action_delivery.projectile and data.raw["projectile"][action_delivery.projectile]
+    end)
+    return action_delivery.projectile
 end
 
 --- @param entity_name string
