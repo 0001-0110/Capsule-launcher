@@ -32,3 +32,9 @@ If you’d like to contribute, feel free to reach out!
 I welcome feedback and ideas from the Factorio community! If you have suggestions or encounter any issues, feel free to reach out through the mod portal or the discussion threads.
 
 Thank you for trying out the **Capsule launcher mod**! I hope it adds an exciting new dynamic to your Factorio experience.
+
+---
+
+## Special thanks
+
+  - Zantigar, for their numerous bug reports and help in fixing those issues.

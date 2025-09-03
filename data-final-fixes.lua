@@ -21,7 +21,7 @@ local function is_combat_robot_capsule(capsule)
 end
 
 for _, capsule_prototype in pairs(data.raw["capsule"]) do
-    if is_throwable_capsule(capsule_prototype) then
+    if is_throwable_capsule(capsule_prototype) and utils.get_projectile(capsule_prototype) then
         if is_combat_robot_capsule(capsule_prototype) then
             data:extend(combat_robot_ammo_factory.create_combat_robot_ammo_prototypes(capsule_prototype))
         else
