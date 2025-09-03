@@ -44,18 +44,18 @@ function utils.create_prototype(prototype_data)
     return utils.override_table(prototype, prototype_data)
 end
 
--- TODO This is hideous
 --- @param capsule data.CapsulePrototype
+--- @return string | nil projectile_name
 function utils.get_projectile(capsule)
-    local _, action = Stream.of(capsule.capsule_action.attack_parameters.ammo_type.action):first_or_default(function(_, action)
-        return Stream.of(action.action_delivery):any(function(_, action_delivery)
+    local _, action_delivery = Stream.of(capsule.capsule_action.attack_parameters.ammo_type.action)
+        :flat_map(function(action)
+            return Stream.of(action.action_delivery):to_table()
+        end)
+        :first_or_default(function(_, action_delivery)
             return action_delivery.projectile and data.raw["projectile"][action_delivery.projectile]
         end)
-    end)
-    local _, action_delivery = Stream.of(action.action_delivery):first_or_default(function(_, action_delivery)
-        return action_delivery.projectile and data.raw["projectile"][action_delivery.projectile]
-    end)
-    return action_delivery.projectile
+
+    return action_delivery and action_delivery.projectile
 end
 
 --- @param entity_name string
