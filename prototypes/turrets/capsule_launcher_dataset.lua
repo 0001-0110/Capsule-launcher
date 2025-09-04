@@ -8,7 +8,7 @@ local capsule_launcher_dataset = {}
 capsule_launcher_dataset.entity_data = {
     type = "ammo-turret",
     based_on = based_on,
-    name = utils.prefix("capsule-launcher-entity"),
+    name = utils.prefix("capsule-launcher"),
     attack_parameters = {
         ammo_category = ammo_category.name,
         min_range = 0,
@@ -22,7 +22,7 @@ capsule_launcher_dataset.entity_data = {
 capsule_launcher_dataset.item_data = {
     type = "item",
     based_on = based_on,
-    name = utils.prefix("capsule-launcher-item"),
+    name = utils.prefix("capsule-launcher"),
     place_result = capsule_launcher_dataset.entity_data.name,
 }
 
@@ -31,7 +31,7 @@ capsule_launcher_dataset.entity_data.minable = { result = capsule_launcher_datas
 capsule_launcher_dataset.recipe_data = {
     type = "recipe",
     based_on = based_on,
-    name = utils.prefix("capsule-launcher-recipe"),
+    name = utils.prefix("capsule-launcher"),
     enabled = false,
     ingredients = {
         {
@@ -71,7 +71,7 @@ capsule_launcher_dataset.recipe_data = {
 
 capsule_launcher_dataset.technology_prototype = {
     type = "technology",
-    name = utils.prefix("capsule-launcher-technology"),
+    name = utils.prefix("capsule-launcher"),
     icon = "__space-age__/graphics/technology/rocket-turret.png",
     icon_size = 256,
     unit = {
