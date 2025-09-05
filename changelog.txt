@@ -1,6 +1,8 @@
 ---------------------------------------------------------------------------------------------------
 Version: 1.4.6
 Date: 2025-09-05
+  Changes:
+    - Changed item order
   Bugfixes:
     - Fixed a regression where combat robot would return to the capsule launcher
     - Fixed infinite loading screen when used together with some mods
