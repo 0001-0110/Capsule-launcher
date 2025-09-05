@@ -58,33 +58,6 @@ local function is_recipe_unlocked_by(recipe, technology)
     return get_effect_index(recipe, technology.effects) ~= nil
 end
 
---- Recursively checks if the given recipe is unlocked by a technology or any of its prerequisites
---- @param recipe data.RecipePrototype
---- @param technology data.TechnologyPrototype
---- @param visited table<string, boolean> | nil
---- @return boolean
-local function is_recipe_unlocked_in_tree(recipe, technology, visited)
-    visited = visited or {}
-
-    if visited[technology.name] then
-        return visited[technology.name]
-    end
-    if is_recipe_unlocked_by(recipe, technology) then
-        visited[technology.name] = true
-        return true
-    end
-
-    for _, prerequisite in pairs(technology.prerequisites or {}) do
-        if is_recipe_unlocked_in_tree(recipe, data.raw["technology"][prerequisite], visited) then
-            visited[technology.name] = true
-            return true
-        end
-    end
-
-    visited[technology.name] = false
-    return false
-end
-
 --- Returns all recipes that produce the given item, excluding those that also use the item as an ingredient
 --- (like recycling recipes).
 --- @param item data.ItemPrototype
@@ -114,18 +87,6 @@ local function update_technologies(capsule, new_recipe)
                 if is_recipe_unlocked_by(recipe, technology) and not is_recipe_unlocked_by(new_recipe, technology) then
                     table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
                 end
-            end
-        end
-    end
-
-    -- Remove the capsule ammo from all technologies where one required technology already has the same unlock recipe
-    for _, technology in pairs(data.raw["technology"]) do
-        for _, prerequisite in pairs(technology.prerequisites or {}) do
-            if
-                is_recipe_unlocked_by(new_recipe, technology)
-                and is_recipe_unlocked_in_tree(new_recipe, data.raw["technology"][prerequisite])
-            then
-                table.remove(technology.effects, get_effect_index(new_recipe, technology))
             end
         end
     end
