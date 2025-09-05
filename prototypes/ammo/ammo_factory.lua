@@ -19,32 +19,32 @@ local function create_item_prototype(capsule, projectile)
         drop_sound = {
             aggregation = {
                 max_count = 1,
-                remove = true
+                remove = true,
             },
             filename = "__base__/sound/item/ammo-large-inventory-move.ogg",
-            volume = 0.6
+            volume = 0.6,
         },
         inventory_move_sound = {
             aggregation = {
                 max_count = 1,
-                remove = true
+                remove = true,
             },
             filename = "__base__/sound/item/ammo-large-inventory-move.ogg",
-            volume = 0.6
+            volume = 0.6,
         },
         pick_sound = {
             aggregation = {
                 max_count = 1,
-                remove = true
+                remove = true,
             },
             filename = "__base__/sound/item/ammo-large-inventory-pickup.ogg",
-            volume = 0.7
+            volume = 0.7,
         },
     }
 end
 
 local function create_recipe_prototype(capsule_name, result_item)
-    recipe = {
+    return {
         name = utils.prefix(capsule_name .. "-ammo"),
         localised_name = { "recipe-name.22_cl_capsule-ammo", { "item-name.grenade" } },
         type = "recipe",
@@ -71,7 +71,6 @@ local function create_recipe_prototype(capsule_name, result_item)
             },
         },
     }
-    return recipe
 end
 
 --- @param recipe data.RecipePrototype
