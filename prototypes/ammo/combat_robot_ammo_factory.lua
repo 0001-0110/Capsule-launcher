@@ -17,7 +17,9 @@ end
 local function create_idle_combat_robot(combat_robot)
     local custom_combat_robot = table.deepcopy(combat_robot)
     custom_combat_robot.name = utils.prefix("idle-" .. combat_robot.name)
+    custom_combat_robot.localised_name = { "entity-name." ..combat_robot.name }
     custom_combat_robot.max_speed = 0
+    custom_combat_robot.hidden_in_factoriopedia = true
     return custom_combat_robot
 end
 
