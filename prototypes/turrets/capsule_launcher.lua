@@ -3,13 +3,33 @@ local ammo_category = require("prototypes.ammo_category")
 
 local capsule_launcher = {}
 
+local capsule_launcher_name = utils.prefix("capsule-launcher")
+
 local modifiers = {
     type = "main-menu",
     volume_multiplier = 1.8
 }
 
 capsule_launcher.entity_prototype = {
+    name = capsule_launcher_name,
+    type = "ammo-turret",
+    icon = "__space-age__/graphics/icons/rocket-turret.png",
+    max_health = 400,
+    inventory_size = 1,
     alert_when_attacking = true,
+    heating_energy = "50kW",
+    surface_conditions = {
+        {
+            min = 0.1,
+            property = "gravity"
+        }
+    },
+    minable = {
+        mining_time = 0.5,
+        result = capsule_launcher_name
+    },
+    attacking_speed = 0.5,
+    automated_ammo_count = 10,
     attack_parameters = {
         ammo_category = ammo_category.name,
         cooldown = 600,
@@ -175,8 +195,6 @@ capsule_launcher.entity_prototype = {
             }
         }
     },
-    attacking_speed = 0.5,
-    automated_ammo_count = 10,
     call_for_help_radius = 40,
     circuit_connector = {
         {
@@ -548,15 +566,6 @@ capsule_launcher.entity_prototype = {
             }
         }
     },
-    heating_energy = "50kW",
-    icon = "__space-age__/graphics/icons/rocket-turret.png",
-    inventory_size = 1,
-    max_health = 400,
-    minable = {
-        mining_time = 0.5,
-        result = "22_cl_capsule-launcher"
-    },
-    name = utils.prefix("capsule-launcher"),
     open_sound = {
         filename = "__base__/sound/open-close/turret-open.ogg",
         volume = 0.8
@@ -769,13 +778,6 @@ capsule_launcher.entity_prototype = {
             1.5
         }
     },
-    surface_conditions = {
-        {
-            min = 0.1,
-            property = "gravity"
-        }
-    },
-    type = "ammo-turret",
     water_reflection = {
         orientation_to_variation = false,
         pictures = {
@@ -795,7 +797,7 @@ capsule_launcher.entity_prototype = {
 }
 
 capsule_launcher.item_prototype = {
-    name = utils.prefix("capsule-launcher"),
+    name = capsule_launcher_name,
     type = "item",
     subgroup = "turret",
     place_result = capsule_launcher.entity_prototype.name,
@@ -831,7 +833,7 @@ capsule_launcher.item_prototype = {
 
 capsule_launcher.recipe_prototype = {
     type = "recipe",
-    name = utils.prefix("capsule-launcher"),
+    name = capsule_launcher_name,
     enabled = false,
     ingredients = {
         {
@@ -871,7 +873,7 @@ capsule_launcher.recipe_prototype = {
 
 capsule_launcher.technology_prototype = {
     type = "technology",
-    name = utils.prefix("capsule-launcher"),
+    name = capsule_launcher_name,
     icon = "__space-age__/graphics/technology/rocket-turret.png",
     icon_size = 256,
     unit = {
