@@ -3,6 +3,7 @@ Version: 1.4.6
 Date: 2025-09-05
   Bugfixes:
     - Fixed a regression where combat robot would return to the capsule launcher
+    - Fixed infinite loading screen when used together with some mods
   Locale:
     - Added dynamic locale, to allow capsule ammo made from custom capsules to also have a proper name
   Translation:
