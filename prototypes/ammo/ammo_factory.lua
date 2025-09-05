@@ -8,6 +8,7 @@ local based_on = "rocket"
 local function create_item_prototype(capsule, projectile)
     local item = table.deepcopy(data.raw["ammo"][based_on])
     item.name = utils.prefix(capsule.name .. "-ammo")
+    item.localised_name = { "item-name.22_cl_capsule-ammo", { "item-name." .. capsule.name } }
     item.icon = capsule.icon
     -- Set the ammo category to allow capsule launchers to use this as ammo
     item.ammo_category = ammo_category.name
@@ -18,7 +19,8 @@ end
 
 local function create_recipe_prototype(name, result_item)
     local recipe = table.deepcopy(data.raw["recipe"][based_on])
-    recipe.name = utils.prefix(name .. "-ammo-recipe")
+    recipe.name = utils.prefix(name .. "-ammo")
+    recipe.localised_name = { "recipe-name.22_cl_capsule-ammo", { "item-name." .. name } }
     recipe.hide_from_player_crafting = true
     recipe.ingredients = {
         {

@@ -55,7 +55,7 @@ function utils.create_prototype(prototype_data)
 end
 
 --- @param capsule data.CapsulePrototype
---- @return string | nil projectile_name
+--- @return data.ProjectilePrototype
 function utils.get_projectile(capsule)
     local _, action_delivery = Stream.of(capsule.capsule_action.attack_parameters.ammo_type.action)
         :flat_map(function(action)
@@ -65,7 +65,7 @@ function utils.get_projectile(capsule)
             return action_delivery.projectile and data.raw["projectile"][action_delivery.projectile]
         end)
 
-    return action_delivery and action_delivery.projectile
+    return action_delivery and data.raw["projectile"][action_delivery.projectile]
 end
 
 --- @param entity_name string
