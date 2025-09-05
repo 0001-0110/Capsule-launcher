@@ -2,46 +2,75 @@ local utils = require("utils.utils")
 local Stream = require("__toolbelt-22__.tools.stream")
 local ammo_category = require("prototypes.ammo_category")
 
-local based_on = "rocket"
-
 --- @param capsule data.CapsulePrototype
+--- @return data.ItemPrototype
 local function create_item_prototype(capsule, projectile)
-    local item = table.deepcopy(data.raw["ammo"][based_on])
-    item.name = utils.prefix(capsule.name .. "-ammo")
-    item.localised_name = { "item-name.22_cl_capsule-ammo", { "item-name." .. capsule.name } }
-    item.icon = capsule.icon
-    -- Set the ammo category to allow capsule launchers to use this as ammo
-    item.ammo_category = ammo_category.name
-    -- Set the projectile to fire when this item is used in the turret
-    item.ammo_type = projectile
-    return item
+    return {
+        name = utils.prefix(capsule.name .. "-ammo"),
+        localised_name = { "item-name.22_cl_capsule-ammo", { "item-name." .. capsule.name } },
+        type = "ammo",
+        ammo_type = projectile,
+        ammo_category = ammo_category.name,
+        icon = capsule.icon,
+        order = "d[rocket-launcher]-a[basic]",
+        stack_size = 100,
+        subgroup = "ammo",
+        weight = 40000,
+        drop_sound = {
+            aggregation = {
+                max_count = 1,
+                remove = true,
+            },
+            filename = "__base__/sound/item/ammo-large-inventory-move.ogg",
+            volume = 0.6,
+        },
+        inventory_move_sound = {
+            aggregation = {
+                max_count = 1,
+                remove = true,
+            },
+            filename = "__base__/sound/item/ammo-large-inventory-move.ogg",
+            volume = 0.6,
+        },
+        pick_sound = {
+            aggregation = {
+                max_count = 1,
+                remove = true,
+            },
+            filename = "__base__/sound/item/ammo-large-inventory-pickup.ogg",
+            volume = 0.7,
+        },
+    }
 end
 
-local function create_recipe_prototype(name, result_item)
-    local recipe = table.deepcopy(data.raw["recipe"][based_on])
-    recipe.name = utils.prefix(name .. "-ammo")
-    recipe.localised_name = { "recipe-name.22_cl_capsule-ammo", { "item-name." .. name } }
-    recipe.hide_from_player_crafting = true
-    recipe.ingredients = {
-        {
-            type = "item",
-            name = "iron-plate",
-            amount = 2,
+local function create_recipe_prototype(capsule_name, result_item)
+    return {
+        name = utils.prefix(capsule_name .. "-ammo"),
+        localised_name = { "recipe-name.22_cl_capsule-ammo", { "item-name.grenade" } },
+        type = "recipe",
+        enabled = false,
+        energy_required = 4,
+        hide_from_player_crafting = true,
+        ingredients = {
+            {
+                type = "item",
+                name = "iron-plate",
+                amount = 2,
+            },
+            {
+                type = "item",
+                name = capsule_name,
+                amount = 1,
+            },
         },
-        {
-            type = "item",
-            name = name,
-            amount = 1,
+        results = {
+            {
+                type = "item",
+                name = result_item.name,
+                amount = 1,
+            },
         },
     }
-    recipe.results = {
-        {
-            type = "item",
-            name = result_item.name,
-            amount = 1,
-        },
-    }
-    return recipe
 end
 
 --- @param recipe data.RecipePrototype
