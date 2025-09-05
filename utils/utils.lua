@@ -7,6 +7,16 @@ local PREFIX = "22_cl"
 
 local utils = {}
 
+--- @param data table
+--- @return any[]
+function utils.to_array(data)
+    local array = {}
+    for _, value in pairs(data) do
+        table.insert(array, value)
+    end
+    return array
+end
+
 --- Remove a part of the string
 function utils.string_remove(string, substitution)
     return string:gsub(substitution, "")
