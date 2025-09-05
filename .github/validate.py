@@ -90,6 +90,7 @@ def parse_locale_dir(language_directory):
         try:
             with open(path, encoding="utf-8") as file:
                 for line in file:
+                    line = line.strip()
                     if not line or line.startswith(";"):
                         continue
                     # Section header
