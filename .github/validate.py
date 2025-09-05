@@ -78,8 +78,69 @@ def validate_thumbnail():
         return False
     return True
 
+def parse_locale_dir(language_directory):
+    """Return a set of all keys across all .cfg files in a language directory."""
+    keys = set()
+    for filename in os.listdir(language_directory):
+        if not filename.endswith(".cfg"):
+            print(f"Found weird file {filename} in locale folder, skipping")
+            continue
+        path = os.path.join(language_directory, filename)
+        current_section = None
+        try:
+            with open(path, encoding="utf-8") as file:
+                for line in file:
+                    if not line or line.startswith(";"):
+                        continue
+                    # Section header
+                    if line.startswith("[") and line.endswith("]"):
+                        current_section = line
+                    # Locale key
+                    elif "=" in line:
+                        key, _ = line.split("=", 1)
+                        full_key = f"{current_section}.{key}" if current_section else key
+                        keys.add(full_key)
+        except Exception as exception:
+            print(f"Failed to parse {path}: {exception}")
+    return keys
+
+def validate_locales():
+    locale_directory = "locale"
+    if not os.path.isdir(locale_directory):
+        print("No locale folder found")
+        return False
+
+    languages = [language_directory for language_directory in os.listdir(locale_directory) if os.path.isdir(os.path.join(locale_directory, language_directory))]
+    if not languages:
+        print("No languages found inside locale/")
+        return False
+
+    reference_lang = "en"
+    if reference_lang not in languages:
+        print("Warning: no English (en) locale found, using first language as reference")
+        reference_lang = languages[0]
+
+    reference_keys = parse_locale_dir(os.path.join(locale_directory, reference_lang))
+    if not reference_keys:
+        print(f"No keys found in reference locale: {reference_lang}")
+        return False
+
+    for language in languages:
+        language_directory = os.path.join(locale_directory, language)
+        keys = parse_locale_dir(language_directory)
+        missing = reference_keys - keys
+        extra = keys - reference_keys
+        if missing:
+            print(f"[{language}] Missing keys: {', '.join(sorted(missing))}")
+            return False
+        if extra:
+            print(f"[{language}] Extra keys: {', '.join(sorted(extra))}")
+            return False
+
+    return True
+
 def validate_mod_structure():
-    return validate_info() and validate_changelog() and validate_thumbnail()
+    return validate_info() and validate_changelog() and validate_thumbnail() and validate_locales()
 
 if __name__ == "__main__":
     if not validate_mod_structure():
