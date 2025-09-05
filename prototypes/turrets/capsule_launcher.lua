@@ -7,7 +7,7 @@ local capsule_launcher_name = utils.prefix("capsule-launcher")
 
 local modifiers = {
     type = "main-menu",
-    volume_multiplier = 1.8
+    volume_multiplier = 1.8,
 }
 
 capsule_launcher.entity_prototype = {
@@ -21,12 +21,12 @@ capsule_launcher.entity_prototype = {
     surface_conditions = {
         {
             min = 0.1,
-            property = "gravity"
-        }
+            property = "gravity",
+        },
     },
     minable = {
         mining_time = 0.5,
-        result = capsule_launcher_name
+        result = capsule_launcher_name,
     },
     attacking_speed = 0.5,
     automated_ammo_count = 10,
@@ -36,81 +36,81 @@ capsule_launcher.entity_prototype = {
         min_range = 0,
         projectile_center = {
             0,
-            0
+            0,
         },
         projectile_creation_distance = 1,
         projectile_creation_offsets = {
             {
                 1.0625,
-                -0.21875
+                -0.21875,
             },
             {
                 -1.0625,
-                -0.21875
+                -0.21875,
             },
             {
                 0.96875,
-                -0.0625
+                -0.0625,
             },
             {
                 -0.96875,
-                -0.0625
+                -0.0625,
             },
             {
                 0.84375,
-                0.09375
+                0.09375,
             },
             {
                 -0.84375,
-                0.09375
-            }
+                0.09375,
+            },
         },
         range = 50,
         sound = {
             aggregation = {
                 count_already_playing = true,
                 max_count = 4,
-                remove = true
+                remove = true,
             },
             variations = {
                 {
                     filename = "__space-age__/sound/ammo/rocket-turret-launcher-1.ogg",
                     modifiers = modifiers,
-                    volume = 0.7
+                    volume = 0.7,
                 },
                 {
                     filename = "__space-age__/sound/ammo/rocket-turret-launcher-2.ogg",
                     modifiers = modifiers,
-                    volume = 0.7
+                    volume = 0.7,
                 },
                 {
                     filename = "__space-age__/sound/ammo/rocket-turret-launcher-3.ogg",
                     modifiers = modifiers,
-                    volume = 0.7
+                    volume = 0.7,
                 },
                 {
                     filename = "__space-age__/sound/ammo/rocket-turret-launcher-4.ogg",
                     modifiers = modifiers,
-                    volume = 0.7
+                    volume = 0.7,
                 },
                 {
                     filename = "__space-age__/sound/ammo/rocket-turret-launcher-5.ogg",
                     modifiers = modifiers,
-                    volume = 0.7
+                    volume = 0.7,
                 },
                 {
                     filename = "__space-age__/sound/ammo/rocket-turret-launcher-6.ogg",
                     modifiers = modifiers,
-                    volume = 0.7
+                    volume = 0.7,
                 },
                 {
                     filename = "__space-age__/sound/ammo/rocket-turret-launcher-7.ogg",
                     modifiers = modifiers,
-                    volume = 0.7
-                }
-            }
+                    volume = 0.7,
+                },
+            },
         },
-        type = "projectile"
+        type = "projectile",
     },
     attacking_animation = {
         layers = {
@@ -119,7 +119,7 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-3.png",
                 },
                 height = 164,
                 line_length = 1,
@@ -127,10 +127,10 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.890625
+                    -0.890625,
                 },
                 slice = 1,
-                width = 160
+                width = 160,
             },
             {
                 blend_mode = "additive",
@@ -139,7 +139,7 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-3.png",
                 },
                 height = 130,
                 line_length = 1,
@@ -147,10 +147,10 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.78125
+                    -0.78125,
                 },
                 slice = 1,
-                width = 150
+                width = 150,
             },
             {
                 apply_runtime_tint = true,
@@ -158,10 +158,10 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-3.png",
                 },
                 flags = {
-                    "mask"
+                    "mask",
                 },
                 height = 146,
                 line_length = 1,
@@ -169,10 +169,10 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     -0.03125,
-                    -0.828125
+                    -0.828125,
                 },
                 slice = 1,
-                width = 152
+                width = 152,
             },
             {
                 direction_count = 64,
@@ -180,7 +180,7 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-3.png",
                 },
                 height = 182,
                 line_length = 1,
@@ -188,12 +188,12 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0.828125,
-                    -0.03125
+                    -0.03125,
                 },
                 slice = 1,
-                width = 224
-            }
-        }
+                width = 224,
+            },
+        },
     },
     call_for_help_radius = 40,
     circuit_connector = {
@@ -202,28 +202,28 @@ capsule_launcher.entity_prototype = {
                 shadow = {
                     green = {
                         -0.21875,
-                        1.25
+                        1.25,
                     },
                     red = {
                         0.09375,
-                        1.1875
-                    }
+                        1.1875,
+                    },
                 },
                 wire = {
                     green = {
                         -0.53125,
-                        0.75
+                        0.75,
                     },
                     red = {
                         -0.40625,
-                        0.5625
-                    }
-                }
+                        0.5625,
+                    },
+                },
             },
             sprites = {
                 blue_led_light_offset = {
                     -0.71875,
-                    0.625
+                    0.625,
                 },
                 connector_main = {
                     filename = "__base__/graphics/entity/circuit-connector/ccm-universal-04a-base-sequence.png",
@@ -232,11 +232,11 @@ capsule_launcher.entity_prototype = {
                     scale = 0.5,
                     shift = {
                         -0.5625,
-                        0.4375
+                        0.4375,
                     },
                     width = 52,
                     x = 52,
-                    y = 100
+                    y = 100,
                 },
                 led_blue = {
                     draw_as_glow = true,
@@ -246,11 +246,11 @@ capsule_launcher.entity_prototype = {
                     scale = 0.5,
                     shift = {
                         -0.5625,
-                        0.40625
+                        0.40625,
                     },
                     width = 60,
                     x = 60,
-                    y = 120
+                    y = 120,
                 },
                 led_blue_off = {
                     filename = "__base__/graphics/entity/circuit-connector/ccm-universal-04f-blue-LED-off-sequence.png",
@@ -259,11 +259,11 @@ capsule_launcher.entity_prototype = {
                     scale = 0.5,
                     shift = {
                         -0.5625,
-                        0.40625
+                        0.40625,
                     },
                     width = 46,
                     x = 46,
-                    y = 88
+                    y = 88,
                 },
                 led_green = {
                     draw_as_glow = true,
@@ -273,15 +273,15 @@ capsule_launcher.entity_prototype = {
                     scale = 0.5,
                     shift = {
                         -0.5625,
-                        0.40625
+                        0.40625,
                     },
                     width = 48,
                     x = 48,
-                    y = 92
+                    y = 92,
                 },
                 led_light = {
                     intensity = 0,
-                    size = 0.9
+                    size = 0.9,
                 },
                 led_red = {
                     draw_as_glow = true,
@@ -291,15 +291,15 @@ capsule_launcher.entity_prototype = {
                     scale = 0.5,
                     shift = {
                         -0.5625,
-                        0.40625
+                        0.40625,
                     },
                     width = 48,
                     x = 48,
-                    y = 92
+                    y = 92,
                 },
                 red_green_led_light_offset = {
                     -0.6875,
-                    0.46875
+                    0.46875,
                 },
                 wire_pins = {
                     filename = "__base__/graphics/entity/circuit-connector/ccm-universal-04c-wire-sequence.png",
@@ -308,29 +308,29 @@ capsule_launcher.entity_prototype = {
                     scale = 0.5,
                     shift = {
                         -0.5625,
-                        0.4375
+                        0.4375,
                     },
                     width = 62,
                     x = 62,
-                    y = 116
-                }
-            }
-        }
+                    y = 116,
+                },
+            },
+        },
     },
     circuit_wire_max_distance = 9,
     close_sound = {
         filename = "__base__/sound/open-close/turret-close.ogg",
-        volume = 0.8
+        volume = 0.8,
     },
     collision_box = {
         {
             -1.2,
-            -1.2
+            -1.2,
         },
         {
             1.2,
-            1.2
-        }
+            1.2,
+        },
     },
     corpse = "rocket-turret-remnants",
     damaged_trigger_effect = {
@@ -339,25 +339,25 @@ capsule_launcher.entity_prototype = {
         offset_deviation = {
             {
                 -0.5,
-                -0.5
+                -0.5,
             },
             {
                 0.5,
-                0.5
-            }
+                0.5,
+            },
         },
         offsets = {
             {
                 0,
-                1
-            }
+                1,
+            },
         },
-        type = "create-entity"
+        type = "create-entity",
     },
     dying_explosion = "gun-turret-explosion",
     flags = {
         "placeable-player",
-        "player-creation"
+        "player-creation",
     },
     folded_animation = {
         layers = {
@@ -372,9 +372,9 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.84375
+                    -0.84375,
                 },
-                width = 156
+                width = 156,
             },
             {
                 blend_mode = "additive",
@@ -389,16 +389,16 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.671875
+                    -0.671875,
                 },
-                width = 150
+                width = 150,
             },
             {
                 apply_runtime_tint = true,
                 direction_count = 4,
                 filename = "__space-age__/graphics/entity/rocket-turret/rocket-turret-rising-mask.png",
                 flags = {
-                    "mask"
+                    "mask",
                 },
                 frame_count = 18,
                 height = 140,
@@ -407,9 +407,9 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.875
+                    -0.875,
                 },
-                width = 152
+                width = 152,
             },
             {
                 direction_count = 4,
@@ -422,11 +422,11 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0.9375,
-                    0.046875
+                    0.046875,
                 },
-                width = 210
-            }
-        }
+                width = 210,
+            },
+        },
     },
     folding_animation = {
         layers = {
@@ -441,9 +441,9 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.84375
+                    -0.84375,
                 },
-                width = 156
+                width = 156,
             },
             {
                 blend_mode = "additive",
@@ -458,16 +458,16 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.671875
+                    -0.671875,
                 },
-                width = 150
+                width = 150,
             },
             {
                 apply_runtime_tint = true,
                 direction_count = 4,
                 filename = "__space-age__/graphics/entity/rocket-turret/rocket-turret-rising-mask.png",
                 flags = {
-                    "mask"
+                    "mask",
                 },
                 frame_count = 18,
                 height = 140,
@@ -476,9 +476,9 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.875
+                    -0.875,
                 },
-                width = 152
+                width = 152,
             },
             {
                 direction_count = 4,
@@ -491,28 +491,28 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0.9375,
-                    0.046875
+                    0.046875,
                 },
-                width = 210
-            }
-        }
+                width = 210,
+            },
+        },
     },
     folding_sound = {
         aggregation = {
             count_already_playing = true,
             max_count = 2,
-            remove = true
+            remove = true,
         },
         variations = {
             {
                 filename = "__space-age__/sound/entity/rocket-turret/rocket-turret-deactivate-1.ogg",
-                volume = 0.5
+                volume = 0.5,
             },
             {
                 filename = "__space-age__/sound/entity/rocket-turret/rocket-turret-deactivate-2.ogg",
-                volume = 0.5
-            }
-        }
+                volume = 0.5,
+            },
+        },
     },
     folding_speed = 0.08,
     graphics_set = {
@@ -528,16 +528,16 @@ capsule_launcher.entity_prototype = {
                         scale = 0.5,
                         shift = {
                             -0.015625,
-                            0.140625
+                            0.140625,
                         },
-                        width = 202
+                        width = 202,
                     },
                     {
                         apply_runtime_tint = true,
                         filename = "__space-age__/graphics/entity/rocket-turret/rocket-turret-base-mask.png",
                         flags = {
                             "mask",
-                            "low-object"
+                            "low-object",
                         },
                         frame_count = 1,
                         height = 148,
@@ -545,9 +545,9 @@ capsule_launcher.entity_prototype = {
                         scale = 0.5,
                         shift = {
                             0,
-                            0.03125
+                            0.03125,
                         },
-                        width = 170
+                        width = 170,
                     },
                     {
                         draw_as_shadow = true,
@@ -558,17 +558,17 @@ capsule_launcher.entity_prototype = {
                         scale = 0.5,
                         shift = {
                             0.234375,
-                            0.203125
+                            0.203125,
                         },
-                        width = 204
-                    }
-                }
-            }
-        }
+                        width = 204,
+                    },
+                },
+            },
+        },
     },
     open_sound = {
         filename = "__base__/sound/open-close/turret-open.ogg",
-        volume = 0.8
+        volume = 0.8,
     },
     prepare_range = 55,
     prepared_animation = {
@@ -578,7 +578,7 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-3.png",
                 },
                 height = 164,
                 line_length = 1,
@@ -586,10 +586,10 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.890625
+                    -0.890625,
                 },
                 slice = 1,
-                width = 160
+                width = 160,
             },
             {
                 blend_mode = "additive",
@@ -598,7 +598,7 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-glow-3.png",
                 },
                 height = 130,
                 line_length = 1,
@@ -606,10 +606,10 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.78125
+                    -0.78125,
                 },
                 slice = 1,
-                width = 150
+                width = 150,
             },
             {
                 apply_runtime_tint = true,
@@ -617,10 +617,10 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-mask-3.png",
                 },
                 flags = {
-                    "mask"
+                    "mask",
                 },
                 height = 146,
                 line_length = 1,
@@ -628,10 +628,10 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     -0.03125,
-                    -0.828125
+                    -0.828125,
                 },
                 slice = 1,
-                width = 152
+                width = 152,
             },
             {
                 direction_count = 64,
@@ -639,7 +639,7 @@ capsule_launcher.entity_prototype = {
                 filenames = {
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-1.png",
                     "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-2.png",
-                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-3.png"
+                    "__space-age__/graphics/entity/rocket-turret/rocket-turret-shooting-shadow-3.png",
                 },
                 height = 182,
                 line_length = 1,
@@ -647,12 +647,12 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0.828125,
-                    -0.03125
+                    -0.03125,
                 },
                 slice = 1,
-                width = 224
-            }
-        }
+                width = 224,
+            },
+        },
     },
     preparing_animation = {
         layers = {
@@ -667,9 +667,9 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.84375
+                    -0.84375,
                 },
-                width = 156
+                width = 156,
             },
             {
                 blend_mode = "additive",
@@ -684,16 +684,16 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.671875
+                    -0.671875,
                 },
-                width = 150
+                width = 150,
             },
             {
                 apply_runtime_tint = true,
                 direction_count = 4,
                 filename = "__space-age__/graphics/entity/rocket-turret/rocket-turret-rising-mask.png",
                 flags = {
-                    "mask"
+                    "mask",
                 },
                 frame_count = 18,
                 height = 140,
@@ -702,9 +702,9 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0,
-                    -0.875
+                    -0.875,
                 },
-                width = 152
+                width = 152,
             },
             {
                 direction_count = 4,
@@ -717,28 +717,28 @@ capsule_launcher.entity_prototype = {
                 scale = 0.5,
                 shift = {
                     0.9375,
-                    0.046875
+                    0.046875,
                 },
-                width = 210
-            }
-        }
+                width = 210,
+            },
+        },
     },
     preparing_sound = {
         aggregation = {
             count_already_playing = true,
             max_count = 2,
-            remove = true
+            remove = true,
         },
         variations = {
             {
                 filename = "__space-age__/sound/entity/rocket-turret/rocket-turret-activate-1.ogg",
-                volume = 0.4
+                volume = 0.4,
             },
             {
                 filename = "__space-age__/sound/entity/rocket-turret/rocket-turret-activate-2.ogg",
-                volume = 0.4
-            }
-        }
+                volume = 0.4,
+            },
+        },
     },
     preparing_speed = 0.08,
     rotating_sound = {
@@ -748,35 +748,35 @@ capsule_launcher.entity_prototype = {
             aggregation = {
                 count_already_playing = true,
                 max_count = 2,
-                remove = true
+                remove = true,
             },
             variations = {
                 filename = "__space-age__/sound/entity/rocket-turret/rocket-turret-rotation-loop.ogg",
-                volume = 0.15
-            }
+                volume = 0.15,
+            },
         },
         stopped_sound = {
             aggregation = {
                 count_already_playing = true,
                 max_count = 1,
-                remove = true
+                remove = true,
             },
             variations = {
                 filename = "__space-age__/sound/entity/rocket-turret/rocket-turret-rotation-stop.ogg",
-                volume = 0.5
-            }
-        }
+                volume = 0.5,
+            },
+        },
     },
     rotation_speed = 0.005,
     selection_box = {
         {
             -1.5,
-            -1.5
+            -1.5,
         },
         {
             1.5,
-            1.5
-        }
+            1.5,
+        },
     },
     water_reflection = {
         orientation_to_variation = false,
@@ -787,13 +787,13 @@ capsule_launcher.entity_prototype = {
             scale = 5,
             shift = {
                 0,
-                1.25
+                1.25,
             },
             variation_count = 1,
-            width = 20
+            width = 20,
         },
-        rotate = false
-    }
+        rotate = false,
+    },
 }
 
 capsule_launcher.item_prototype = {
@@ -808,26 +808,26 @@ capsule_launcher.item_prototype = {
     drop_sound = {
         aggregation = {
             max_count = 1,
-            remove = true
+            remove = true,
         },
         filename = "__base__/sound/item/turret-inventory-move.ogg",
-        volume = 0.6
+        volume = 0.6,
     },
     inventory_move_sound = {
         aggregation = {
             max_count = 1,
-            remove = true
+            remove = true,
         },
         filename = "__base__/sound/item/turret-inventory-move.ogg",
-        volume = 0.6
+        volume = 0.6,
     },
     pick_sound = {
         aggregation = {
             max_count = 1,
-            remove = true
+            remove = true,
         },
         filename = "__base__/sound/item/turret-inventory-pickup.ogg",
-        volume = 0.5
+        volume = 0.5,
     },
 }
 
