@@ -2,44 +2,75 @@ local utils = require("utils.utils")
 local Stream = require("__toolbelt-22__.tools.stream")
 local ammo_category = require("prototypes.ammo_category")
 
-local based_on = "rocket"
-
 --- @param capsule data.CapsulePrototype
+--- @return data.ItemPrototype
 local function create_item_prototype(capsule, projectile)
-    local item = table.deepcopy(data.raw["ammo"][based_on])
-    item.name = utils.prefix(capsule.name .. "-ammo")
-    item.icon = capsule.icon
-    -- Set the ammo category to allow capsule launchers to use this as ammo
-    item.ammo_category = ammo_category.name
-    -- Set the projectile to fire when this item is used in the turret
-    item.ammo_type = projectile
-    return item
+    return {
+        name = utils.prefix(capsule.name .. "-ammo"),
+        localised_name = { "item-name.22_cl_capsule-ammo", { "item-name." .. capsule.name } },
+        type = "ammo",
+        ammo_type = projectile,
+        ammo_category = ammo_category.name,
+        icon = capsule.icon,
+        subgroup = "ammo",
+        order = "e[capsule-ammo]-a[basic]",
+        stack_size = 100,
+        weight = 40000,
+        drop_sound = {
+            aggregation = {
+                max_count = 1,
+                remove = true,
+            },
+            filename = "__base__/sound/item/ammo-large-inventory-move.ogg",
+            volume = 0.6,
+        },
+        inventory_move_sound = {
+            aggregation = {
+                max_count = 1,
+                remove = true,
+            },
+            filename = "__base__/sound/item/ammo-large-inventory-move.ogg",
+            volume = 0.6,
+        },
+        pick_sound = {
+            aggregation = {
+                max_count = 1,
+                remove = true,
+            },
+            filename = "__base__/sound/item/ammo-large-inventory-pickup.ogg",
+            volume = 0.7,
+        },
+    }
 end
 
-local function create_recipe_prototype(name, result_item)
-    local recipe = table.deepcopy(data.raw["recipe"][based_on])
-    recipe.name = utils.prefix(name .. "-ammo-recipe")
-    recipe.hide_from_player_crafting = true
-    recipe.ingredients = {
-        {
-            type = "item",
-            name = "iron-plate",
-            amount = 2,
+local function create_recipe_prototype(capsule_name, result_item)
+    return {
+        name = utils.prefix(capsule_name .. "-ammo"),
+        localised_name = { "recipe-name.22_cl_capsule-ammo", { "item-name.grenade" } },
+        type = "recipe",
+        enabled = false,
+        energy_required = 4,
+        hide_from_player_crafting = true,
+        ingredients = {
+            {
+                type = "item",
+                name = "iron-plate",
+                amount = 2,
+            },
+            {
+                type = "item",
+                name = capsule_name,
+                amount = 1,
+            },
         },
-        {
-            type = "item",
-            name = name,
-            amount = 1,
+        results = {
+            {
+                type = "item",
+                name = result_item.name,
+                amount = 1,
+            },
         },
     }
-    recipe.results = {
-        {
-            type = "item",
-            name = result_item.name,
-            amount = 1,
-        },
-    }
-    return recipe
 end
 
 --- @param recipe data.RecipePrototype
@@ -54,33 +85,6 @@ end
 --- @param technology data.TechnologyPrototype
 local function is_recipe_unlocked_by(recipe, technology)
     return get_effect_index(recipe, technology.effects) ~= nil
-end
-
---- Recursively checks if the given recipe is unlocked by a technology or any of its prerequisites
---- @param recipe data.RecipePrototype
---- @param technology data.TechnologyPrototype
---- @param visited table<string, boolean> | nil
---- @return boolean
-local function is_recipe_unlocked_in_tree(recipe, technology, visited)
-    visited = visited or {}
-
-    if visited[technology.name] then
-        return visited[technology.name]
-    end
-    if is_recipe_unlocked_by(recipe, technology) then
-        visited[technology.name] = true
-        return true
-    end
-
-    for _, prerequisite in pairs(technology.prerequisites or {}) do
-        if is_recipe_unlocked_in_tree(recipe, data.raw["technology"][prerequisite], visited) then
-            visited[technology.name] = true
-            return true
-        end
-    end
-
-    visited[technology.name] = false
-    return false
 end
 
 --- Returns all recipes that produce the given item, excluding those that also use the item as an ingredient
@@ -112,18 +116,6 @@ local function update_technologies(capsule, new_recipe)
                 if is_recipe_unlocked_by(recipe, technology) and not is_recipe_unlocked_by(new_recipe, technology) then
                     table.insert(technology.effects, { type = "unlock-recipe", recipe = new_recipe.name })
                 end
-            end
-        end
-    end
-
-    -- Remove the capsule ammo from all technologies where one required technology already has the same unlock recipe
-    for _, technology in pairs(data.raw["technology"]) do
-        for _, prerequisite in pairs(technology.prerequisites or {}) do
-            if
-                is_recipe_unlocked_by(new_recipe, technology)
-                and is_recipe_unlocked_in_tree(new_recipe, data.raw["technology"][prerequisite])
-            then
-                table.remove(technology.effects, get_effect_index(new_recipe, technology))
             end
         end
     end

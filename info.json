@@ -1,6 +1,6 @@
 {
     "name": "capsule-launcher",
-    "version": "1.4.5",
+    "version": "1.4.6",
     "title": "Capsule launcher",
     "description": "Introduce a turret that fires capsules (slowdown, poison, and combat robots) for strategic base defense.",
     "author": "0001-0110",
